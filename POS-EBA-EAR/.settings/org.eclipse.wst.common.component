@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="POS-EBA-EAR">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="POS-EBA-BF.jar" deploy-path="/" handle="module:/resource/POS-EBA-BF/POS-EBA-BF">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="POS-EBA-BFCL.jar" deploy-path="/lib" handle="module:/resource/POS-EBA-BFCL/POS-EBA-BFCL">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="POS-EBA-PF.war" deploy-path="/" handle="module:/resource/POS-EBA-PF/POS-EBA-PF">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="POS-EBA-RF.jar" deploy-path="/" handle="module:/resource/POS-EBA-RF/POS-EBA-RF">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="POS-EBA-RS.war" deploy-path="/" handle="module:/resource/POS-EBA-RS/POS-EBA-RS">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
