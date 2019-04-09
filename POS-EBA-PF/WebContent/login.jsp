@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/register.js"></script>
+<script src="js/login.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -59,7 +60,7 @@
 	
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-8 offset-md-4">
-	                                <button type="submit" class="btn btn-primary">
+	                                <button id="login" type="submit" class="btn btn-primary">
 	                                    Login
 	                                </button>
 	
