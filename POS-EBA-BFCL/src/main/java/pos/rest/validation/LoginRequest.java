@@ -6,15 +6,15 @@ public class LoginRequest implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String userName;
+	private String email;
 	private String password;
 
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -27,7 +27,7 @@ public class LoginRequest implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LoginRequest: [ userName: " + this.userName + "; password: " + this.password + " ]";
+		return "LoginRequest: [ email: " + this.email + "; password: " + this.password + " ]";
 	}
 
 }
