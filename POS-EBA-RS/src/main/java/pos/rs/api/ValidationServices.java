@@ -27,5 +27,5 @@ public interface ValidationServices {
 	@Path(RestPaths.REGISTER)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	RegisterResponse loginRequest(@Context HttpServletRequest httpRequest, RegisterRequest request);
+	RegisterResponse registerRequest(@Context HttpServletRequest httpRequest, RegisterRequest request);
 }

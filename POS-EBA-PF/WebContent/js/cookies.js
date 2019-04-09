@@ -29,10 +29,12 @@ $(document).ready(function(){
 		data:{"cookie":json},
 		success:function(data)
 		{
+			console.log("data="+data);
 			if(data !== null)
 			{
 				//Am nevoie de id-ul utilizatorului din baza de date criptat
 				//cookie-valid -> redirect to /services/profile/{id} ca sa rezulte o ruta: /services/profile/ddhdhsalkeuio47y4nj
+				console.log("get data");
 				$.ajax({
 					type:"GET",
 					dataType:"text",

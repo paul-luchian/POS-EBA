@@ -13,7 +13,7 @@ public class ValidationServicesImpl implements ValidationServices {
 
 	@Override
 	public LoginResponse loginRequest(HttpServletRequest httpRequest, LoginRequest request) {
-		System.out.println(request);
+		System.out.println("##################################"+request);
 		LoginResponse response = new LoginResponse();
 		response.setCookie("cookie");
 		response.setrCode(ResponseCodes.OK.code);
@@ -21,8 +21,8 @@ public class ValidationServicesImpl implements ValidationServices {
 	}
 
 	@Override
-	public RegisterResponse loginRequest(HttpServletRequest httpRequest, RegisterRequest request) {
-		System.out.println(request);
+	public RegisterResponse registerRequest(HttpServletRequest httpRequest, RegisterRequest request) {
+		System.out.println("##################################"+request);
 		RegisterResponse response = new RegisterResponse();
 		response.setCookie("cookie");
 		response.setrCode(ResponseCodes.OK.code);

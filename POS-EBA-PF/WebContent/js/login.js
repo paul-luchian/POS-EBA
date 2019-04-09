@@ -7,6 +7,8 @@ $(document).ready(function(){
 		arg.name=email;
 		arg.value=password;
 		console.log(arg);
+		//location.assign("localhost:8080/POS-EBA-RS/services/validator/profile");
 	})
 
 })
+

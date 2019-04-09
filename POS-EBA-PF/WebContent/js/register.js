@@ -7,18 +7,36 @@ $(document).ready(function()
 				var lname = $('input[name="lastname"]').val();
 				var em = $('input[name="register-email"]').val();
 				var pswd = $('input[name="register-password"]').val();
+				//console.log(fname+" "+lname);
+				//console.log(em);
+				//console.log(pswd);
 				
+				var json = {"firstName":fname, "lastName":lname, "email":em, "password":pswd};
+				var _json = JSON.stringify(json);
+				console.log("json="+JSON.stringify(json));
+				
+				jQuery.support.cors = true;
 				$.ajax({
 					type:'POST', 
-					dataType:'text',
-					url:"register.jsp",
-					data:{"firstname":firstname, "lastname":lastname, "email":em},
+					url:"http://localhost:8080/POS-EBA-RS/services/validation/register",
+					crossDomain: true,
+					data:_json,
+					contentType:"application/json; charset=utf-8",
+					dataType:"json",
+					
 					success:function(data)
-					{						
-							console.log(data);
+					{
+							console.log( "response post"+ data);
+						
+							window.location.replace("http://localhost:8080/POS-EBA-PF/login.jsp");
 	
+					},
+					error:function(data)
+					{
+						console.log("error"+JSON.stringify(data));
 					}
 				});
+				console.log( "after ajax");
 			});
 
 });
