@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
+import java.util.Date;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -25,7 +26,7 @@ public class CookieHandler {
 	// cookie valid 7 days
 	// 7 days 24h per day 60m per h 60s per m
 	// the cookie will have to expire after 7 days from the time when it was setted
-	private static final long EXPIRATION_VALUE = 7 * 24 * 60 * 60;
+	private static final long EXPIRATION_VALUE = 7 * 24 * 60 * 60 *1000;
 	private static String secretKey = "pos123456789012";
 	private static String salt = "sha256posproiect!!";
 
@@ -75,6 +76,9 @@ public class CookieHandler {
 
 		long now = DateUtility.dateToLong(bsCtxt.getRequestTimestamp());
 		long expire_date = now + EXPIRATION_VALUE;
+		Date d = new Date(expire_date);
+		System.out.println("now ="+now);
+		System.out.println("expire ="+d);
 
 		bsCtxt.setToken(generateToken(email, password, userType, now, expire_date));
 		bsCtxt.setSettedDate(now);
