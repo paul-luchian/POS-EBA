@@ -1,28 +1,42 @@
 package pos.rs.impl;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import pos.business.BusinessContext;
+import pos.business.view.validation.ValidationLogicRemote;
 import pos.rest.ResponseCodes;
 import pos.rest.validation.LoginRequest;
 import pos.rest.validation.LoginResponse;
 import pos.rest.validation.RegisterRequest;
 import pos.rest.validation.RegisterResponse;
 import pos.rs.api.ValidationServices;
+import pos.util.StringUtility;
 
+@Stateless
 public class ValidationServicesImpl implements ValidationServices {
+	@Inject
+	private ValidationLogicRemote validationLogic;
 
 	@Override
 	public LoginResponse loginRequest(HttpServletRequest httpRequest, LoginRequest request) {
-		System.out.println("##################################"+request);
+		BusinessContext bsCtxt = BusinessContext.from(httpRequest);
+
 		LoginResponse response = new LoginResponse();
-		response.setCookie("cookie");
-		response.setrCode(ResponseCodes.OK.code);
+		String cookie = validationLogic.loginRequest(bsCtxt, request);
+		if (cookie.equals("")) {
+			response.setrCode(ResponseCodes.EXCEPTION_THROWN.code);
+		}
+
+		response.setCookie(cookie);
+
 		return response;
 	}
 
 	@Override
 	public RegisterResponse registerRequest(HttpServletRequest httpRequest, RegisterRequest request) {
-		System.out.println("##################################"+request);
+		System.out.println(request);
 		RegisterResponse response = new RegisterResponse();
 		response.setCookie("cookie");
 		response.setrCode(ResponseCodes.OK.code);
