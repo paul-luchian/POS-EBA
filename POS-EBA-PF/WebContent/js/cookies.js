@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	var cookies = document.cookie;
 
-	var separator = ';';
+	var separator = ';;;;;;;;;;';
 	var equal = '=';
 	var args = cookies.split(separator);
 
