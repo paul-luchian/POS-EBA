@@ -2,6 +2,7 @@ package pos.rs.api;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,7 +15,7 @@ import pos.util.RestPaths;
 
 @Path(RestPaths.USER)
 public interface UserServices {
-	@PUT
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	Response putUserRequest(@Context HttpServletRequest httpRequest, PutUserRequest user);
