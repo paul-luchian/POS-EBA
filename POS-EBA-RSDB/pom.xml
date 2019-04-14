@@ -1,12 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>POS-EBA-BF</groupId>
-  <artifactId>POS-EBA-BF</artifactId>
+  <groupId>POS-EBA-RSDB</groupId>
+  <artifactId>POS-EBA-RSDB</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
   	<dependency>
   		<groupId>POS-EBA-BFCL</groupId>
   		<artifactId>POS-EBA-BFCL</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>POS-EBA-RF</groupId>
+  		<artifactId>POS-EBA-RF</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>

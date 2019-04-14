@@ -12,7 +12,7 @@ $(document).ready(function() {
 		jQuery.support.cors = true;
 		$.ajax({
 			type : 'POST',
-			url : "http://localhost:8080/POS-EBA-RS/services/validation/login",
+			url : "http://localhost:8080/POS-EBA-RS/services/login",
 			crossDomain : true,
 			data : json,
 			contentType : "application/json; charset=utf-8",

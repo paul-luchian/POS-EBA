@@ -13,4 +13,12 @@ public class StringUtility {
 		}
 		return true;
 	}
+
+	public static long stringToLong(String number) {
+		try {
+			return Long.parseLong(number);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 }

@@ -1,11 +1,14 @@
 package pos.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 import pos.PersistenceManager;
+import pos.RfUtil;
 import pos.entities.User;
 
 @Stateless(name = "UserRepository")
@@ -22,9 +25,23 @@ public class UserRepositoryImpl extends PersistenceManager implements Serializab
 		return user.getId();
 	}
 
-	/*
-	 * public List<User> selectUserByMail(String mail) { TypedQuery<User> query =
-	 * em.createNamedQuery(RfUtil.SELECT_USER_BY_MAIL, User.class);
-	 * query.setParameter("mail", mail); return query.getResultList(); }
-	 */
+	public User selectUserById(long id) {
+		// id-ul in find reprezinta primary key-ul din db
+		return em.find(User.class, id);
+	}
+
+	public List<User> selectUsers() {
+		// in RfUtil definim denumirea query-ului din db
+		// queryul se gaseste in entitate
+		// query-ul se gaseste in User.java
+		TypedQuery<User> query = em.createNamedQuery(RfUtil.SELECT_USERS, User.class);
+		return query.getResultList();
+	}
+
+	public long updateUser(long id, User user) {
+		User userFromDb = selectUserById(id);
+		userFromDb.setPassword(user.getPassword());
+		userFromDb.setUserName(user.getUserName());
+		return id;
+	}
 }
