@@ -23,7 +23,37 @@ $(document).ready(function() {
 				// cookie is in data {rCode,cookie:{}}
 				// get the cookie and set it
 				// after that redirect to profile
-				console.log("response post" + JSON.stringify(data));
+				var obj = JSON.parse(JSON.stringify(data));
+				var c = obj.cookie;
+				var separator = ';';
+				var equal = '=';
+				var args = c.split(separator);
+
+				var i = 0;
+				var expiration_date = 0;
+
+				var fields = {};
+				for (i = 0; i < args.length; i++) {
+
+					var elements = args[i].split(equal);
+					if (elements[0] !== "Expiration-date") {
+						fields[elements[0]] = elements[1];
+					} else {
+						expiration_date = elements[1];
+					}
+
+				}
+
+				var data = JSON.stringify(fields);
+				var date = new Date();
+				date.setTime(expiration_date);
+				$.cookie("cookie1", $.param(data), {
+					expires : date
+				});
+				if($.cookie("cookie1") !== null){
+					console.log("cookie="+ JSON.stringify($.cookie("cookie1")));
+					window.location.replace("http://localhost:8080/POS-EBA-PF/profile.jsp");
+				}
 				/*
 				 * window.location
 				 * .replace("http://localhost:8080/POS-EBA-PF/profile.jsp");
