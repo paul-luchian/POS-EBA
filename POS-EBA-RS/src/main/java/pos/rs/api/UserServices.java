@@ -4,7 +4,7 @@ import javax.ws.rs.Path;
 
 import pos.util.RestPaths;
 
-@Path(RestPaths.PROFILE)
-public interface ProfileServices {
+@Path(RestPaths.USER)
+public interface UserServices {
 
 }
