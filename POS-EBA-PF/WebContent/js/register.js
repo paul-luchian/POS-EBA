@@ -9,14 +9,14 @@ $(document).ready(function()
 				var pswd = $('input[name="register-password"]').val();
 				var user = $('input[name="register-username"]').val();
 
-				var json = {"firstName":fname, "lastName":lname, "username":user,"mail":em, "password":pswd};
+				var json = {"firstName":fname, "lastName":lname, "userName":user,"mail":em, "password":pswd};
 				var _json = JSON.stringify(json);
 				console.log("json="+JSON.stringify(json));
 				
 				jQuery.support.cors = true;
 				$.ajax({
 					type:'POST', 
-					url:"http://localhost:8080/POS-EBA-RS/services/validation/register",
+					url:"http://localhost:8080/POS-EBA-RS/services/register",
 					crossDomain: true,
 					data:_json,
 					contentType:"application/json; charset=utf-8",
