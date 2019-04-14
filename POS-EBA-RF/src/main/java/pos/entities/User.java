@@ -7,16 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import pos.RfUtil;
-
+// @NamedQuery(name = RfUtil.SELECT_USER_BY_MAIL_PASS, query = "SELECT u FROM User u WHERE u.mail=:mail AND u.password=:password"),
 @Entity
 @Table(name = "POS_USERS")
-@NamedQueries({
-		@NamedQuery(name = RfUtil.SELECT_USER_BY_MAIL_PASS, query = "SELECT u FROM User u WHERE u.mail=:mail AND u.password=:password"),
-		@NamedQuery(name = RfUtil.SELECT_USER_BY_MAIL, query = "SELECT u FROM User u WHERE u.mail=:mail") })
+@NamedQueries({})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,8 +22,8 @@ public class User implements Serializable {
 	@Column(name = "ID", nullable = false)
 	private long id;
 
-	@Column(name = "MAIL", nullable = false, length = 10)
-	private String mail;
+	@Column(name = "USERNAME", nullable = false, length = 10)
+	private String userName;
 
 	@Column(name = "PASSWORD", nullable = false, length = 10)
 	private String password;
@@ -40,12 +36,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

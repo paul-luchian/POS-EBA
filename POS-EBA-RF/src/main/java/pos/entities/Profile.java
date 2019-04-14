@@ -8,16 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import pos.RfUtil;
-
 @Entity
 @Table(name = "POS_PROFILES")
-@NamedQueries({
-		@NamedQuery(name = RfUtil.SELECT_PROFILE_BY_USER_ID, query = "SELECT p FROM Profile p WHERE p.user.id=:userId") })
+@NamedQueries({})
 public class Profile implements Serializable {
 
 	private static final long serialVersionUID = 1L;

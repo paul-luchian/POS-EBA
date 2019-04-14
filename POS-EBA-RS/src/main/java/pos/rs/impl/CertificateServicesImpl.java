@@ -1,7 +1,9 @@
 package pos.rs.impl;
 
-import pos.rs.api.CertificateServices;
+import javax.ejb.Stateless;
 
+import pos.rs.api.CertificateServices;
+@Stateless
 public class CertificateServicesImpl implements CertificateServices {
 
 }

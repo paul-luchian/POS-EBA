@@ -19,26 +19,24 @@ import pos.util.StringUtility;
 public class BusinessContext implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String COOKIE_NAME = "server1";
 
 	// fields inside cookie names
 	public static final String TOKEN = "Token";
-	public static final String MAIL = "Mail";
 	public static final String EXPIRATION_DATE = "Expiration-date";
-	public static final String COOKIE_NAME = "server1";
 
 	// variables where the fields inside cookies will be putted
 	private String token;
-	private String mail;
 	private long expirationDate;
 	private final Date requestTimestamp = new Date();
 	private NewCookie cookie;
 
-	public NewCookie getCookie() {
-		return cookie;
+	public String getToken() {
+		return token;
 	}
 
-	public void setCookie(NewCookie cookie) {
-		this.cookie = cookie;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public long getExpirationDate() {
@@ -49,24 +47,16 @@ public class BusinessContext implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
+	public NewCookie getCookie() {
+		return cookie;
+	}
+
+	public void setCookie(NewCookie cookie) {
+		this.cookie = cookie;
+	}
+
 	public Date getRequestTimestamp() {
 		return requestTimestamp;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
 	}
 
 	public static BusinessContext from(HttpServletRequest request) {
@@ -97,21 +87,15 @@ public class BusinessContext implements Serializable {
 		if (cookie != null) {
 			bsCtxt.setToken(cookie.getValue());
 		}
-		cookie = cookieMap.get(MAIL);
-		if (cookie != null) {
-			bsCtxt.setMail(cookie.getValue());
-		}
 		cookie = cookieMap.get(EXPIRATION_DATE);
 		if (cookie != null) {
 			bsCtxt.setExpirationDate(Long.parseLong(cookie.getValue()));
 		}
-		// TODO maybe set the cookie
-		
+
 	}
 
 	public static boolean isSetted(BusinessContext bCtxt) {
-		if (!StringUtility.isBlank(bCtxt.getMail()) && !StringUtility.isBlank(bCtxt.getToken())
-				&& bCtxt.getExpirationDate() != 0) {
+		if (!StringUtility.isBlank(bCtxt.getToken()) && bCtxt.getExpirationDate() != 0) {
 			return true;
 		}
 		return false;
@@ -123,10 +107,6 @@ public class BusinessContext implements Serializable {
 
 		string.append(TOKEN + "=");
 		string.append(this.token != null ? this.token : "");
-		string.append(";");
-
-		string.append(MAIL + "=");
-		string.append(this.mail != null ? this.mail : "");
 		string.append(";");
 
 		string.append(EXPIRATION_DATE + "=");

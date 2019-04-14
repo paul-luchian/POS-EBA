@@ -31,9 +31,10 @@ public class CookieHandler {
 	private static final int EXPIRATION_VALUE = 7 * 24 * 60 * 60 * 1000;
 	private static final String SECRET_KEY = "pos123456789012";
 	private static final String SALT = "sha256posproiect!!";
-	private static final int NO_OF_ELEMENTS_IN_TOKEN = 3;
+	private static final int NO_OF_ELEMENTS_IN_TOKEN = 4;
 
 	public static String[] decryptString(String strToDecrypt) {
+		// elements order: id + ";" + userName + ";" + password + ";" + setted_date;
 		String[] elements = CookieHandler.decrypt(strToDecrypt, SECRET_KEY).split(";");
 		if (elements.length != NO_OF_ELEMENTS_IN_TOKEN) {
 			return null;
@@ -42,7 +43,7 @@ public class CookieHandler {
 	}
 
 	public static boolean datesValid(long setted_date, long expiry_date) {
-		if (setted_date - expiry_date == EXPIRATION_VALUE) {
+		if (expiry_date - setted_date == EXPIRATION_VALUE) {
 			return true;
 		}
 		return false;
@@ -94,21 +95,20 @@ public class CookieHandler {
 		return null;
 	}
 
-	public static void createCookie(BusinessContext bsCtxt, String email, String password, String userType) {
+	public static void createCookie(BusinessContext bsCtxt, String userName, String password, long id) {
 
 		long setted_date = DateUtility.dateToLong(bsCtxt.getRequestTimestamp());
 		long expire_date = setted_date + EXPIRATION_VALUE;
 
-		bsCtxt.setToken(generateToken(email, password, setted_date));
-		bsCtxt.setMail(email);
+		bsCtxt.setToken(generateToken(id, userName, password, setted_date));
 		bsCtxt.setExpirationDate(expire_date);
 		bsCtxt.setCookie(
 				new NewCookie(BusinessContext.COOKIE_NAME, bsCtxt.toString(), RestPaths.PATH_APPLICATION_COOKIE, null,
 						1, null, EXPIRATION_VALUE, new Date(bsCtxt.getExpirationDate()), false, false));
 	}
 
-	private static String generateToken(String email, String password, long setted_date) {
-		String str = email + ";" + password + ";" + setted_date;
+	private static String generateToken(long id, String userName, String password, long setted_date) {
+		String str = id + ";" + userName + ";" + password + ";" + setted_date;
 		String token = encrypt(str, SECRET_KEY);
 		return token;
 	}

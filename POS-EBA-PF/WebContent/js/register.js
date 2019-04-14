@@ -7,11 +7,9 @@ $(document).ready(function()
 				var lname = $('input[name="lastname"]').val();
 				var em = $('input[name="register-email"]').val();
 				var pswd = $('input[name="register-password"]').val();
-				//console.log(fname+" "+lname);
-				//console.log(em);
-				//console.log(pswd);
-				
-				var json = {"firstName":fname, "lastName":lname, "mail":em, "password":pswd};
+				var user = $('input[name="register-username"]').val();
+
+				var json = {"firstName":fname, "lastName":lname, "username":user,"mail":em, "password":pswd};
 				var _json = JSON.stringify(json);
 				console.log("json="+JSON.stringify(json));
 				
