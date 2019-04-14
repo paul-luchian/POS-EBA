@@ -3,6 +3,7 @@ package pos.rs.impl;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Response;
 
 import pos.business.BusinessContext;
 import pos.business.view.validation.ValidationLogicRemote;
@@ -35,12 +36,19 @@ public class ValidationServicesImpl implements ValidationServices {
 	}
 
 	@Override
-	public RegisterResponse registerRequest(HttpServletRequest httpRequest, RegisterRequest request) {
+	public Response registerRequest(HttpServletRequest httpRequest, RegisterRequest request) {
+		BusinessContext bsCtxt = BusinessContext.from(httpRequest);
 		System.out.println(request);
 		RegisterResponse response = new RegisterResponse();
-		response.setCookie("cookie");
-		response.setrCode(ResponseCodes.OK.code);
-		return response;
+		if (validationLogic.registerRequest(bsCtxt, request)) {
+			if (BusinessContext.isSetted(bsCtxt)) {
+				Response.ok(response).cookie(bsCtxt.getCookie()).status(201).build();
+			} else {
+				response.setrCode(ResponseCodes.EXCEPTION_THROWN.code);
+				Response.ok().status(404).build();
+			}
+		}
+		return Response.ok(response).status(201).build();
 	}
 
 }

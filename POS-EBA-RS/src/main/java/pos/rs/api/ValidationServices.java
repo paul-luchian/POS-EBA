@@ -3,15 +3,16 @@ package pos.rs.api;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import pos.rest.validation.LoginRequest;
 import pos.rest.validation.LoginResponse;
 import pos.rest.validation.RegisterRequest;
-import pos.rest.validation.RegisterResponse;
 import pos.util.RestPaths;
 
 @Path(RestPaths.VALIDATION)
@@ -27,5 +28,5 @@ public interface ValidationServices {
 	@Path(RestPaths.REGISTER)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	RegisterResponse registerRequest(@Context HttpServletRequest httpRequest, RegisterRequest request);
+	Response registerRequest(@Context HttpServletRequest httpRequest, RegisterRequest request);
 }

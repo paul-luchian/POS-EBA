@@ -11,7 +11,7 @@ $(document).ready(function()
 				//console.log(em);
 				//console.log(pswd);
 				
-				var json = {"firstName":fname, "lastName":lname, "email":em, "password":pswd};
+				var json = {"firstName":fname, "lastName":lname, "mail":em, "password":pswd};
 				var _json = JSON.stringify(json);
 				console.log("json="+JSON.stringify(json));
 				

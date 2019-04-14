@@ -8,8 +8,16 @@ public class RegisterRequest implements Serializable {
 
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String mail;
 	private String password;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -27,14 +35,6 @@ public class RegisterRequest implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -46,6 +46,6 @@ public class RegisterRequest implements Serializable {
 	@Override
 	public String toString() {
 		return "RegisterRequest: [ password: " + this.password + "; firstName: " + this.firstName + "; lastName: "
-				+ this.lastName + "; email:" + this.email + " ]";
+				+ this.lastName + "; email:" + this.mail + " ]";
 	}
 }

@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.NewCookie;
 
 import com.ibm.wsdl.util.StringUtils;
 
@@ -21,23 +23,21 @@ public class BusinessContext implements Serializable {
 	// fields inside cookie names
 	public static final String TOKEN = "Token";
 	public static final String MAIL = "Mail";
-	public static final String USER_TYPE = "User-type";
 	public static final String EXPIRATION_DATE = "Expiration-date";
-	public static final String SETTED_DATE = "Setted-date";
+	public static final String COOKIE_NAME = "server1";
 
 	// variables where the fields inside cookies will be putted
 	private String token;
 	private String mail;
-	private String userType;
 	private long expirationDate;
-	private long settedDate;
-	private String cookie;
+	private final Date requestTimestamp = new Date();
+	private NewCookie cookie;
 
-	public String getCookie() {
+	public NewCookie getCookie() {
 		return cookie;
 	}
 
-	public void setCookie(String cookie) {
+	public void setCookie(NewCookie cookie) {
 		this.cookie = cookie;
 	}
 
@@ -49,26 +49,8 @@ public class BusinessContext implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
-	public long getSettedDate() {
-		return settedDate;
-	}
-
-	public void setSettedDate(long settedDate) {
-		this.settedDate = settedDate;
-	}
-
 	public Date getRequestTimestamp() {
 		return requestTimestamp;
-	}
-
-	private final Date requestTimestamp = new Date();
-
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
 	}
 
 	public String getToken() {
@@ -119,25 +101,17 @@ public class BusinessContext implements Serializable {
 		if (cookie != null) {
 			bsCtxt.setMail(cookie.getValue());
 		}
-		cookie = cookieMap.get(USER_TYPE);
-		if (cookie != null) {
-			bsCtxt.setUserType(cookie.getValue());
-		}
 		cookie = cookieMap.get(EXPIRATION_DATE);
 		if (cookie != null) {
 			bsCtxt.setExpirationDate(Long.parseLong(cookie.getValue()));
 		}
-		cookie = cookieMap.get(SETTED_DATE);
-		if (cookie != null) {
-			bsCtxt.setSettedDate(Long.parseLong(cookie.getValue()));
-		}
-		bsCtxt.setCookie(bsCtxt.toString());
+		// TODO maybe set the cookie
+		
 	}
 
 	public static boolean isSetted(BusinessContext bCtxt) {
 		if (!StringUtility.isBlank(bCtxt.getMail()) && !StringUtility.isBlank(bCtxt.getToken())
-				&& !StringUtility.isBlank(bCtxt.getUserType()) && bCtxt.getExpirationDate() != 0
-				&& bCtxt.getSettedDate() != 0) {
+				&& bCtxt.getExpirationDate() != 0) {
 			return true;
 		}
 		return false;
@@ -155,17 +129,9 @@ public class BusinessContext implements Serializable {
 		string.append(this.mail != null ? this.mail : "");
 		string.append(";");
 
-		string.append(USER_TYPE + "=");
-		string.append(this.userType != null ? this.userType : "");
-		string.append(";");
-
 		string.append(EXPIRATION_DATE + "=");
 		string.append(this.expirationDate != 0 ? this.expirationDate : 0);
-		string.append(";");
 
-		string.append(SETTED_DATE + "=");
-		string.append(this.settedDate != 0 ? this.settedDate : 0);
-		this.setCookie(string.toString());
 		return string.toString();
 	}
 }

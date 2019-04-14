@@ -33,35 +33,25 @@ public class ValidationLogicImpl implements ValidationLogicRemote, ValidationLog
 	@Override
 	public String loginRequest(BusinessContext bsCtxt, LoginRequest request) {
 		// check if cookie was setted
-		if (BusinessContext.isSetted(bsCtxt)) {
-			// cookie is setted check if it is valid.
-			// check in the database the values from bsCtxt and from bsCtxt.token
-			// tell the front end to redirect to index.html
-
-			boolean flag = true;
-			if (flag == true) {
-				// the information are coorect. Checked the DB
-				return bsCtxt.getCookie();
-			} else {
-				// wrong information.
-				return "";
-			}
-
-		} else {
-			// cookie not setted
-			// check the username and password from request in the db
-			boolean flag = true;
-			if (flag == true) {
-				// the username and password match in the db
-				String userType = "admin from DB";
-				// return CookieHandler.createCookie(bsCtxt, request.getEmail(),
-				// request.getPassword(), userType);
-			} else {
-				// the username and password does NOT match in the db
-				return "";
-			}
-
-		}
+		/*
+		 * if (BusinessContext.isSetted(bsCtxt)) { // cookie is setted check if it is
+		 * valid. // check in the database the values from bsCtxt and from bsCtxt.token
+		 * // tell the front end to redirect to index.html
+		 * 
+		 * boolean flag = true; if (flag == true) { // the information are coorect.
+		 * Checked the DB return bsCtxt.getCookie(); } else { // wrong information.
+		 * return ""; }
+		 * 
+		 * } else { // cookie not setted // check the username and password from request
+		 * in the db boolean flag = true; if (flag == true) { // the username and
+		 * password match in the db String userType = "admin from DB"; // return
+		 * CookieHandler.createCookie(bsCtxt, request.getEmail(), //
+		 * request.getPassword(), userType); } else { // the username and password does
+		 * NOT match in the db return ""; }
+		 * 
+		 * }
+		 */
+		return null;
 	}
 
 	@Override
@@ -80,7 +70,7 @@ public class ValidationLogicImpl implements ValidationLogicRemote, ValidationLog
 			long setted_date = Long.parseLong(el[2]);
 			if (CookieHandler.datesValid(setted_date, bsCtxt.getExpirationDate())) {
 				// dates are valid
-				if (bsCtxt.getExpirationDate() > DateUtility.dateToLong(bsCtxt.getRequestTimestamp())) {
+				if (bsCtxt.getExpirationDate() < DateUtility.dateToLong(bsCtxt.getRequestTimestamp())) {
 					// cookie expired
 					return false;
 				} else {
