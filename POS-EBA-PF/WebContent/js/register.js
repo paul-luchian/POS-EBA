@@ -25,16 +25,26 @@ $(document).ready(function()
 					success:function(data)
 					{
 							console.log( "response post"+ data);
-						
-							window.location.replace("http://localhost:8080/POS-EBA-PF/login.jsp");
+							if(data == "ok")
+								{
+								$.get("http://localhost:8080/POS-EBA-PF/service/login");
+								}
+							else
+								{
+								/*error= username used*/
+								$("#username-error").css("display", "block");
+								$("#email-error").css("display", "block");
+								}
+							
 	
 					},
 					error:function(data)
 					{
-						console.log("error"+JSON.stringify(data));
+						alert("System error!");
+						//location.reload();
+					
 					}
 				});
-				console.log( "after ajax");
 			});
 
 });

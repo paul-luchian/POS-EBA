@@ -8,12 +8,20 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import pos.RfUtil;
 import pos.business.domains.ActionType;
 
 @Entity
 @Table(name = "POS_ACTIONS")
+@NamedQueries({ @NamedQuery(name = RfUtil.SELECT_ALL_ACTIONS, query = "SELECT a FROM Action a"),
+		@NamedQuery(name = RfUtil.SELECT_ACTION_BY_ID, query = "SELECT a FROM Action a WHERE a.id=:id"),
+		@NamedQuery(name = RfUtil.SELECT_ACTIONS_BY_TYPE, query = "SELECT a FROM Action a WHERE a.type=:type"),
+		@NamedQuery(name = RfUtil.SELECT_ACTIONS_BY_URI, query = "SELECT a FROM Action a WHERE a.uri=:uri"),
+		@NamedQuery(name = RfUtil.SELECT_ACTIONS_BY_URI_AND_TYPE, query = "SELECT a FROM Action a WHERE a.uri=:uri AND a.type=:type"), })
 public class Action implements Serializable {
 
 	private static final long serialVersionUID = 1L;
