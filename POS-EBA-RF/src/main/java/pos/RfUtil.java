@@ -16,4 +16,11 @@ public final class RfUtil {
 	public static final String SELECT_ACTIONS_BY_TYPE = "selectActionsByType";
 	public static final String SELECT_ACTION_BY_ID = "selectActionById";
 	public static final String SELECT_ACTIONS_BY_URI_AND_TYPE = "selectActionsByUriAndType";
+
+	//ROLES
+	public static final String SELECT_ALL_ROLES = "selectAllRoles";
+	public static final String SELECT_ROLES_BY_ID = "selectRolesById";
+	public static final String SELECT_ROLES_BY_TYPE = "selectRolesByType";
+	
+	
 }
