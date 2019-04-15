@@ -16,7 +16,7 @@ import pos.RfUtil;
 @Entity
 @Table(name = "POS_USERS")
 @NamedQueries({ @NamedQuery(name = RfUtil.SELECT_USER_BY_ID, query = "SELECT u FROM User u WHERE u.id=:id"),
-		@NamedQuery(name = RfUtil.SELECT_USERS, query = "SELECT u FROM User u"), })
+		@NamedQuery(name = RfUtil.SELECT_ALL_USERS, query = "SELECT u FROM User u"), })
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

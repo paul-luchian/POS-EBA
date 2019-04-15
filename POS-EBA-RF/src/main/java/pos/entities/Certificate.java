@@ -7,11 +7,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import pos.RfUtil;
+
 @Entity
+@NamedQueries({ @NamedQuery(name = RfUtil.SELECT_CERTIFICATE_BY_ID, query = "SELECT c FROM Certificate c WHERE c.id=:id"),
+	@NamedQuery(name = RfUtil.SELECT_CERTIFICATES, query = "SELECT c FROM Certificate c"), })
 @Table(name = "POS_CERTIFICATES")
 public class Certificate implements Serializable {
 

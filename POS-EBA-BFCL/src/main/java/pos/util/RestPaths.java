@@ -12,6 +12,8 @@ public final class RestPaths {
 	public static final String ID = "id";
 	public static final String SERVICES = "services";
 	public static final String LIST = "list";
+	public static final String TYPE = "type";
+	public static final String URI = "uri";
 
 	// tables base path
 	public static final String USER = "user";

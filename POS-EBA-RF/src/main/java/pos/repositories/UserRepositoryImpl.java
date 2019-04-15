@@ -34,7 +34,7 @@ public class UserRepositoryImpl extends PersistenceManager implements Serializab
 		// in RfUtil definim denumirea query-ului din db
 		// queryul se gaseste in entitate
 		// query-ul se gaseste in User.java
-		TypedQuery<User> query = em.createNamedQuery(RfUtil.SELECT_USERS, User.class);
+		TypedQuery<User> query = em.createNamedQuery(RfUtil.SELECT_ALL_USERS, User.class);
 		return query.getResultList();
 	}
 

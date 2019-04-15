@@ -5,7 +5,7 @@
 <head>
 <link href="css/app.css" rel="stylesheet" type="text/css">
 <link href="css/tabmenu.css" rel="stylesheet" type="text/css">
-<title>Insert title here</title>
+<title>Register and login</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -62,7 +62,7 @@
 											</div>
 										</div>
 									</div>
-
+									<label id="login-error" style="display:none">Incorrect username or password!</label>
 									<div class="form-group row mb-0">
 										<div class="col-md-8 offset-md-4">
 											<button id="login" type="submit" class="btn btn-primary">
@@ -112,6 +112,7 @@
 									</div>
 									
 									<div class="form-group row">
+										<label id="username-error" style="display:none">Username already used!</label>
 										<label for="username"
 											class="col-md-4 col-form-label text-md-right">Username</label>
 
@@ -124,6 +125,7 @@
 
 
 									<div class="form-group row">
+									<label id="email-error" style="display:none">Email already used!</label>
 										<label for="email"
 											class="col-md-4 col-form-label text-md-right">Email
 											address</label>
