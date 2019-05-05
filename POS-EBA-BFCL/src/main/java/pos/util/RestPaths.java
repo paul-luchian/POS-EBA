@@ -23,7 +23,7 @@ public final class RestPaths {
 	public static final String CERTIFICATE = "certificates";
 
 	// rest
-
+	public static final String REGISTER = "register";
 	// paths for tests and rest map
 	public static final String PATH_APPLICATION_COOKIE = String.join(SEP, APPLICATION_PATH);
 }
