@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import pos.PersistenceManager;
 import pos.RfUtil;
 import pos.entities.User;
+import pos.util.BCrypt;
 
 @Stateless(name = "UserRepository")
 @LocalBean
@@ -20,8 +21,15 @@ public class UserRepositoryImpl extends PersistenceManager implements Serializab
 	public long insertUser(String userName, String password) {
 		User user = new User();
 		user.setUserName(userName);
-		user.setPassword(password);
+		
+		String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+		user.setPassword(hashed);
+		// for debug only
+		//System.out.println("Hashed password"+user.getPassword());
+		//System.out.println( "check" + BCrypt.checkpw("qqqq", user.getPassword()));
+		
 		em.persist(user);
+		
 		return user.getId();
 	}
 
