@@ -6,37 +6,43 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 
-import pos.entities.User;
+import pos.dtos.UserDto;
 import pos.repositories.UserRepositoryImpl;
 import pos.rs.api.UserServices;
 
 @Stateless
 public class UserServicesImpl implements UserServices {
 	@EJB(beanName = "UserRepository")
-	private UserRepositoryImpl userRepository;
+	private UserRepositoryImpl userRepo;
 
 	@Override
-	public String storeUserRequest(HttpServletRequest httpRequest, User user) {
+	public String storeUserRequest(HttpServletRequest httpRequest, UserDto user) {
 		System.out.println(user);
-		long id = userRepository.insertUser(user.getUserName(), user.getPassword());
+		long id = userRepo.insertUser(user.getUsername(), user.getPassword());
 		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@Override
-	public List<User> getUsersRequest(HttpServletRequest httpRequest) {
-		return userRepository.selectUsers();
+	public UserDto getUserByIdRequest(HttpServletRequest httpRequest, long userId) {
+		return userRepo.selectUserDtoById(userId);
 	}
 
 	@Override
-	public User getUserRequest(HttpServletRequest httpRequest, long userId) {
-		return userRepository.selectUserById(userId);
-	}
-
-	@Override
-	public String updateUserRequest(HttpServletRequest httpRequest, User user, long userId) {
+	public String updateUserRequest(HttpServletRequest httpRequest, UserDto user, long userId) {
 		System.out.println(user);
-		long id = userRepository.updateUser(userId, user);
+		long id = userRepo.updateUser(userId, user);
 		return "{\"id\":\"" + id + "\"}";
+	}
+
+	@Override
+	public List<UserDto> getUsersRequest(HttpServletRequest httpRequest, String username) {
+		return userRepo.selectUsers(username);
+	}
+
+	@Override
+	public void deleteUserRequest(HttpServletRequest httpRequest, long userId) {
+		userRepo.deleteUser(userId);
+
 	}
 
 }

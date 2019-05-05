@@ -7,50 +7,41 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 
 import pos.business.domains.ActionType;
-import pos.entities.Action;
+import pos.dtos.ActionDto;
 import pos.repositories.ActionRepositoryImpl;
 import pos.rs.api.ActionServices;
-import pos.util.StringUtility;
 
 @Stateless
 public class ActionServicesImpl implements ActionServices {
 
 	@EJB(beanName = "ActionRepository")
-	private ActionRepositoryImpl actionRepository;
+	private ActionRepositoryImpl actionRepo;
 
 	@Override
-	public String actionRequest(HttpServletRequest httpRequest, Action action) {
-		long id = actionRepository.insertAction(action.getType(), action.getUri());
+	public String storeActionRequest(HttpServletRequest httpRequest, ActionDto dto) {
+		long id = actionRepo.insertAction(dto);
 		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@Override
-	public List<Action> getActionsRequest(HttpServletRequest httpRequest) {
-		return actionRepository.selectActions();
+	public List<ActionDto> getActionsRequest(HttpServletRequest httpRequest, ActionType type, String uri) {
+		return actionRepo.selectActions(type, uri);
 	}
 
 	@Override
-	public Action getActionRequest(HttpServletRequest httpRequest, long actionId) {
-		return actionRepository.selectActionById(actionId);
+	public ActionDto getActionRequest(HttpServletRequest httpRequest, long actionId) {
+		return actionRepo.selectActionDtoById(actionId);
 	}
 
 	@Override
-	public List<Action> getActionRequest(HttpServletRequest httpRequest, ActionType type, String uri) {
-		if (type != null && !StringUtility.isBlank(uri)) {
-			return actionRepository.selectActionsByUriAndType(uri, type);
-		}
-		if (type != null) {
-			return actionRepository.selectActionsByType(type);
-		}
-		if (!StringUtility.isBlank(uri)) {
-			return actionRepository.selectActionsByUri(uri);
-		}
-		return null;
+	public String updateActionRequest(HttpServletRequest httpRequest, ActionDto dto, long actionId) {
+		long id = actionRepo.updateAction(actionId, dto);
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@Override
 	public void deleteActionRequest(HttpServletRequest httpRequest, long actionId) {
-		actionRepository.deleteActionById(actionId);
+		actionRepo.deleteAction(actionId);
 
 	}
 

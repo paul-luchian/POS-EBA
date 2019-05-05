@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,19 +20,19 @@ public class Profile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
 	@Column(name = "ID", nullable = false)
 	private long id;
 
+	@MapsId
 	@OneToOne
-	@JoinColumn(name = "USER_ID", nullable = false)
+	@JoinColumn(name = "ID", nullable = false)
 	private User user;
 
 	@Column(name = "FIRST_NAME", nullable = false)
-	private String firstName;
+	private String firstname;
 
 	@Column(name = "LAST_NAME", nullable = false)
-	private String lastName;
+	private String lastname;
 
 	public User getUser() {
 		return user;
@@ -49,20 +50,20 @@ public class Profile implements Serializable {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 }

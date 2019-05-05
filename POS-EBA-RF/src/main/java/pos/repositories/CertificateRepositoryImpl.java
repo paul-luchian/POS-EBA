@@ -1,6 +1,7 @@
 package pos.repositories;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,11 +9,20 @@ import java.util.stream.Collectors;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import pos.PersistenceManager;
-import pos.RfUtil;
+import pos.dtos.CertificateDto;
 import pos.entities.Certificate;
-import pos.rest.certificate.CertificateData;
+import pos.entities.Certificate_;
+import pos.exceptions.PosValidationException;
+import pos.exceptions.ValidationHint;
+import pos.util.DateUtility;
+import pos.util.StringUtility;
 
 @Stateless(name = "CertificateRepository")
 @LocalBean
@@ -20,67 +30,102 @@ public class CertificateRepositoryImpl extends PersistenceManager implements Ser
 
 	private static final long serialVersionUID = 1L;
 
-	public long insertCertificate(CertificateData certificateData) {
-		Date valid_from = new Date(certificateData.getValidFrom() * 1000);
-		Date valid_to = new Date(certificateData.getValidTo() * 1000);
-		System.out.println(valid_from);
-		System.out.println(valid_to);
+	public long insertCertificate(CertificateDto dto) {
+		Date valid_from = DateUtility.longToDate(dto.getValidFrom());
+		Date valid_to = DateUtility.longToDate(dto.getValidTo());
 
 		Certificate certificate = new Certificate();
-		certificate.setPath(certificateData.getPath());
-		certificate.setSerialNumber(certificateData.getSerialNumber());
-		certificate.setSubject(certificateData.getSubject());
-		certificate.setIssuer(certificateData.getIssuer());
-		certificate.setSignature(certificateData.getSignature());
+		certificate.setPath(dto.getPath());
+		certificate.setSerialNumber(dto.getSerialNumber());
+		certificate.setSubject(dto.getSubject());
+		certificate.setIssuer(dto.getIssuer());
+		certificate.setSignature(dto.getSignature());
 		certificate.setValidFrom(valid_from);
 		certificate.setValidTo(valid_to);
-		em.persist(certificate);
+		getEntityManager().persist(certificate);
 		return certificate.getId();
 
 	}
 
+	public CertificateDto selectCertificateDtoById(long id) {
+		PosValidationException exc = new PosValidationException();
+
+		Certificate certificate = getEntityManager().find(Certificate.class, id);
+		if (certificate == null) {
+			exc.add(new ValidationHint("certificateId", "Certificate not found!"));
+		}
+		if (!exc.getHints().isEmpty()) {
+			throw exc;
+		}
+		return certificateToDto(certificate);
+
+	}
+
 	public Certificate selectCertificateById(long id) {
-		return em.find(Certificate.class, id);
+		PosValidationException exc = new PosValidationException();
+
+		Certificate certificate = getEntityManager().find(Certificate.class, id);
+		if (certificate == null) {
+			exc.add(new ValidationHint("certificateId", "Certificate not found!"));
+		}
+		if (!exc.getHints().isEmpty()) {
+			throw exc;
+		}
+		return certificate;
 	}
 
-	public CertificateData selectCertificateDataById(long id) {
-		// id-ul in find reprezinta primary key-ul din db
-		Certificate cert = em.find(Certificate.class, id);
-		return certificateToCertificateData(cert);
+	public List<CertificateDto> selectCertificates(String serialNumber, String issuer, String subject) {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Certificate> query = builder.createQuery(Certificate.class);
+		Root<Certificate> root = query.from(Certificate.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+		if (!StringUtility.isBlank(serialNumber)) {
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.SERIAL_NUMBER)));
+			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(serialNumber) + "%"));
+		}
+		if (!StringUtility.isBlank(issuer)) {
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.ISSUER)));
+			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(issuer) + "%"));
+		}
+		if (!StringUtility.isBlank(subject)) {
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.SUBJECT)));
+			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(subject) + "%"));
+		}
+
+		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
+		query.select(root).where(predicatesArray);
+
+		TypedQuery<Certificate> typedQuery = getEntityManager().createQuery(query);
+		return typedQuery.getResultList().stream().map(this::certificateToDto).collect(Collectors.toList());
 	}
 
-	public List<CertificateData> selectCertificates() {
-		// in RfUtil definim denumirea query-ului din db
-		// queryul se gaseste in entitate
-		// query-ul se gaseste in User.java
-		TypedQuery<Certificate> query = em.createNamedQuery(RfUtil.SELECT_CERTIFICATES, Certificate.class);
-
-		return query.getResultList().stream().map(data -> certificateToCertificateData(data))
-				.collect(Collectors.toList());
+	private CertificateDto certificateToDto(Certificate certificate) {
+		CertificateDto dto = new CertificateDto();
+		dto.setId(certificate.getId());
+		dto.setIssuer(certificate.getIssuer());
+		dto.setPath(certificate.getPath());
+		dto.setSerialNumber(certificate.getSerialNumber());
+		dto.setSignature(certificate.getSignature());
+		dto.setSubject(certificate.getSubject());
+		dto.setValidFrom(DateUtility.dateToLong(certificate.getValidFrom()));
+		dto.setValidTo(DateUtility.dateToLong(certificate.getValidTo()));
+		return dto;
 	}
 
-	public CertificateData certificateToCertificateData(Certificate cert) {
-		CertificateData certData = new CertificateData();
-		certData.setId(cert.getId());
-		certData.setIssuer(cert.getIssuer());
-		certData.setPath(cert.getPath());
-		certData.setSerialNumber(cert.getSerialNumber());
-		certData.setSignature(cert.getSignature());
-		certData.setSubject(cert.getSubject());
-		certData.setValidFrom(cert.getValidFrom().getTime());
-		certData.setValidTo(cert.getValidTo().getTime());
-		return certData;
-	}
-
-	public long updateCertificate(long id, CertificateData certificate) {
+	public long updateCertificate(long id, CertificateDto dto) {
 		Certificate certificateFromDb = selectCertificateById(id);
-		certificateFromDb.setPath(certificate.getPath());
-		certificateFromDb.setSerialNumber(certificate.getSerialNumber());
-		certificateFromDb.setSubject(certificate.getSubject());
-		certificateFromDb.setIssuer(certificate.getIssuer());
-		certificateFromDb.setSignature(certificate.getSignature());
-		certificateFromDb.setValidFrom(new Date(certificate.getValidFrom()));
-		certificateFromDb.setValidTo(new Date(certificate.getValidTo()));
-		return id;
+		certificateFromDb.setPath(dto.getPath());
+		certificateFromDb.setSerialNumber(dto.getSerialNumber());
+		certificateFromDb.setSubject(dto.getSubject());
+		certificateFromDb.setIssuer(dto.getIssuer());
+		certificateFromDb.setSignature(dto.getSignature());
+		certificateFromDb.setValidFrom(DateUtility.longToDate(dto.getValidFrom()));
+		certificateFromDb.setValidTo(DateUtility.longToDate(dto.getValidTo()));
+		return certificateFromDb.getId();
+	}
+
+	public void deleteCertificate(long id) {
+		getEntityManager().remove(selectCertificateById(id));
 	}
 }

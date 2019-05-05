@@ -8,16 +8,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import pos.dtos.CertificateDto;
 import pos.entities.Certificate;
-import pos.rest.certificate.CertificateData;
 
+// http://localhost:8080/POS-EBA-RSDB/server1/certificates?issuer=bbb&serialNumber=b&subject=c
 @Path(RestPaths.CERTIFICATE)
 public interface CertificateServices {
 
@@ -26,20 +29,22 @@ public interface CertificateServices {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	String storeCertificateRequest(@Context HttpServletRequest httpRequest, CertificateData certificateData);
+	String storeCertificateRequest(@Context HttpServletRequest httpRequest, CertificateDto dto);
 
 	// va returna o lista de certificate
 	// nu primeste nimic
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	List<CertificateData> getCertificatesRequest(@Context HttpServletRequest httpRequest);
+	List<CertificateDto> getCertificatesRequest(@Context HttpServletRequest httpRequest,
+			@QueryParam(RestPaths.ISSUER) String issuer, @QueryParam(RestPaths.SERIAL_NUMBER) String serialNumber,
+			@QueryParam(RestPaths.SUBJECT) String subject);
 
 	// va returna un singur certificat
 	// primeste id-ul certificatului de returnat
 	@GET
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
-	CertificateData getCertificateRequest(@Context HttpServletRequest httpRequest,
+	CertificateDto getCertificateRequest(@Context HttpServletRequest httpRequest,
 			@PathParam(RestPaths.ID) long certificateId);
 
 	// va face update la un certificat
@@ -47,7 +52,12 @@ public interface CertificateServices {
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	String updateCertificateRequest(@Context HttpServletRequest httpRequest, CertificateData certificate,
+	String updateCertificateRequest(@Context HttpServletRequest httpRequest, CertificateDto dto,
 			@PathParam(RestPaths.ID) long certificateId);
+
+	@DELETE
+	@Path(RestPaths.ID_SERVICE)
+	@Produces(MediaType.APPLICATION_JSON)
+	void deleteCertificateRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long certificateId);
 
 }

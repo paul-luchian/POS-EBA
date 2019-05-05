@@ -15,32 +15,34 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import pos.business.domains.ActionType;
-import pos.entities.Action;
+import pos.dtos.ActionDto;
 import pos.util.RestPaths;
 
+// http://localhost:8080/POS-EBA-RSDB/server1/action?type=POST&uri=local
 @Path(RestPaths.ACTION)
 public interface ActionServices {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	String actionRequest(@Context HttpServletRequest httpRequest, Action action);
+	String storeActionRequest(@Context HttpServletRequest httpRequest, ActionDto dto);
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	List<Action> getActionsRequest(@Context HttpServletRequest httpRequest);
+	List<ActionDto> getActionsRequest(@Context HttpServletRequest httpRequest,
+			@QueryParam(RestPaths.ACTION_TYPE) ActionType type, @QueryParam(RestPaths.URI) String uri);
 
 	@GET
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
-	Action getActionRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long actionId);
+	ActionDto getActionRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long actionId);
 
-	@GET
+	@POST
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
-	List<Action> getActionRequest(@Context HttpServletRequest httpRequest, @QueryParam(RestPaths.TYPE) ActionType type,
-			@QueryParam(RestPaths.TYPE) String uri);
+	String updateActionRequest(@Context HttpServletRequest httpRequest, ActionDto dto,
+			@PathParam(RestPaths.ID) long actionId);
 
 	@DELETE
 	@Path(RestPaths.ID_SERVICE)

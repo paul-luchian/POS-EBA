@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 
 import pos.business.domains.UserType;
-import pos.entities.Role;
+import pos.dtos.RoleDto;
 import pos.repositories.RoleRepositoryImpl;
 import pos.rs.api.RoleServices;
 
@@ -15,37 +15,34 @@ import pos.rs.api.RoleServices;
 public class RoleServicesImpl implements RoleServices {
 
 	@EJB(beanName = "RoleRepository")
-	private RoleRepositoryImpl roleRepository;
-	@Override
-	public String storeRoleRequest(HttpServletRequest httpRequest, Role role) {
+	private RoleRepositoryImpl roleRepo;
 
-		
-		long id = roleRepository.insertRole(role.getType());
+	@Override
+	public String storeRoleRequest(HttpServletRequest httpRequest, RoleDto dto) {
+		long id = roleRepo.insertRole(dto);
 		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@Override
-	public List<Role> getRolesRequest(HttpServletRequest httpRequest) {
-
-		return roleRepository.selectRoles();
+	public List<RoleDto> getRolesRequest(HttpServletRequest httpRequest, UserType userType) {
+		return roleRepo.selectRoles(userType);
 	}
 
 	@Override
-	public Role getRoleRequest(HttpServletRequest httpRequest, long roleId) {
-	
-		return roleRepository.selectRoleById(roleId);
+	public RoleDto getRoleRequest(HttpServletRequest httpRequest, long roleId) {
+		return roleRepo.selectRoleDtoById(roleId);
 	}
 
 	@Override
-	public List<Role> getRoleRequest(HttpServletRequest httpRequest, UserType type) {
-		// TODO Auto-generated method stub
-		return roleRepository.selectRoleByType(type);
+	public String updateRoleRequest(HttpServletRequest httpRequest, RoleDto dto, long roleId) {
+		long id = roleRepo.updateRole(roleId, dto);
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@Override
-	public void deleteRoleRequest(HttpServletRequest httpRequest, Role role, long roleId) {
-		
-		 roleRepository.deleteRoleById(roleId);
+	public void deleteRoleRequest(HttpServletRequest httpRequest, long roleId) {
+		roleRepo.deleteRole(roleId);
+
 	}
-	
+
 }

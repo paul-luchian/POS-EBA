@@ -21,4 +21,8 @@ public class StringUtility {
 			return 0;
 		}
 	}
+
+	public static String cleanString(String string) {
+		return string.trim().toLowerCase();
+	}
 }

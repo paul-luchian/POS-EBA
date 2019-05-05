@@ -15,8 +15,7 @@ import pos.RfUtil;
 // @NamedQuery(name = RfUtil.SELECT_USER_BY_MAIL_PASS, query = "SELECT u FROM User u WHERE u.mail=:mail AND u.password=:password"),
 @Entity
 @Table(name = "POS_USERS")
-@NamedQueries({ @NamedQuery(name = RfUtil.SELECT_USER_BY_ID, query = "SELECT u FROM User u WHERE u.id=:id"),
-		@NamedQuery(name = RfUtil.SELECT_ALL_USERS, query = "SELECT u FROM User u"), })
+@NamedQueries({})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,9 +26,9 @@ public class User implements Serializable {
 	private long id;
 
 	@Column(name = "USERNAME", nullable = false, length = 10, unique = true)
-	private String userName;
+	private String username;
 
-	@Column(name = "PASSWORD", nullable = false, length = 100)
+	@Column(name = "PASSWORD", nullable = false, length = 10)
 	private String password;
 
 	public long getId() {
@@ -40,12 +39,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

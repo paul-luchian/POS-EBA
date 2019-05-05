@@ -15,12 +15,24 @@ public final class RestPaths {
 	public static final String TYPE = "type";
 	public static final String URI = "uri";
 
+	// query param
+	public static final String USERNAME = "username";
+	public static final String FIRSTNAME = "firstname";
+	public static final String LASTNAME = "lastname";
+	public static final String ISSUER = "issuer";
+	public static final String SERIAL_NUMBER = "serialNumber";
+	public static final String SUBJECT = "subject";
+	public static final String ACTION_TYPE = "type";
+	public static final String ACTION_URI = "uri";
+	public static final String USER_TYPE = "userType";
+
 	// tables base path
 	public static final String USER = "user";
 	public static final String ROLE = "role";
 	public static final String PROFILE = "profile";
 	public static final String ACTION = "action";
 	public static final String CERTIFICATE = "certificates";
+	public static final String ROLE_ACTION = "role-action";
 
 	// rest
 	public static final String REGISTER = "register";
