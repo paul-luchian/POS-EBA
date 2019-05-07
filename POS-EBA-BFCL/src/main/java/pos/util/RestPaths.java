@@ -32,6 +32,7 @@ public final class RestPaths {
 	public static final String PROFILE = "profile";
 	public static final String ACTION = "action";
 	public static final String CERTIFICATE = "certificates";
+	public static final String TOKENS = "tokens";
 	public static final String ROLE_ACTION = "role-action";
 
 	// rest
