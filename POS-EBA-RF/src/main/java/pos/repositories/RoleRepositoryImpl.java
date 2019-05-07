@@ -19,10 +19,10 @@ import pos.RfUtil;
 import pos.business.domains.UserType;
 import pos.dtos.RoleDto;
 import pos.entities.Profile;
-import pos.entities.Profile_;
+// import pos.entities.Profile_;
 import pos.entities.Role;
-import pos.entities.Role_;
-import pos.entities.User_;
+// import pos.entities.Role_;
+// import pos.entities.User_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.StringUtility;
@@ -47,7 +47,8 @@ public class RoleRepositoryImpl extends PersistenceManager implements Serializab
 
 		List<Predicate> predicates = new ArrayList<>();
 		if (userType != null) {
-			predicates.add(builder.equal(root.get(Role_.TYPE), userType));
+			// predicates.add(builder.equal(root.get(Role_.TYPE), userType));
+			predicates.add(builder.equal(root.get("type"), userType));
 		}
 
 		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);

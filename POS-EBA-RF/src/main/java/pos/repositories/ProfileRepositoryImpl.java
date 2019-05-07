@@ -18,9 +18,9 @@ import javax.persistence.criteria.Root;
 import pos.PersistenceManager;
 import pos.dtos.ProfileDto;
 import pos.entities.Profile;
-import pos.entities.Profile_;
+// import pos.entities.Profile_;
 import pos.entities.User;
-import pos.entities.User_;
+// import pos.entities.User_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.StringUtility;
@@ -58,15 +58,21 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 
 		List<Predicate> predicates = new ArrayList<>();
 		if (!StringUtility.isBlank(username)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Profile_.USER).get(User_.USERNAME)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Profile_.USER).get(User_.USERNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("user").get("username")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(username) + "%"));
 		}
 		if (!StringUtility.isBlank(firstName)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Profile_.FIRSTNAME)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Profile_.FIRSTNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("firstname")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(firstName) + "%"));
 		}
 		if (!StringUtility.isBlank(lastName)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Profile_.LASTNAME)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Profile_.LASTNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("lastname")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(lastName) + "%"));
 		}
 

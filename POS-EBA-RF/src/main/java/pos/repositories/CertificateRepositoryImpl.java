@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
 import pos.PersistenceManager;
 import pos.dtos.CertificateDto;
 import pos.entities.Certificate;
-import pos.entities.Certificate_;
+// import pos.entities.Certificate_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.DateUtility;
@@ -81,15 +81,21 @@ public class CertificateRepositoryImpl extends PersistenceManager implements Ser
 
 		List<Predicate> predicates = new ArrayList<>();
 		if (!StringUtility.isBlank(serialNumber)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.SERIAL_NUMBER)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Certificate_.SERIAL_NUMBER)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("serialNumber")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(serialNumber) + "%"));
 		}
 		if (!StringUtility.isBlank(issuer)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.ISSUER)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Certificate_.ISSUER)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("issuer")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(issuer) + "%"));
 		}
 		if (!StringUtility.isBlank(subject)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Certificate_.SUBJECT)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Certificate_.SUBJECT)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("subject")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(subject) + "%"));
 		}
 

@@ -25,5 +25,4 @@ public class RegisterServicesImpl implements RegisterServices {
 				.post(Entity.json(user), String.class);
 		return response;
 	}
-
 }

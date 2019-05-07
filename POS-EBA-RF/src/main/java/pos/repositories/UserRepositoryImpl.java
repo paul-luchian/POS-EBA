@@ -16,9 +16,10 @@ import javax.persistence.criteria.Root;
 import pos.PersistenceManager;
 import pos.dtos.UserDto;
 import pos.entities.User;
-import pos.entities.User_;
+// import pos.entities.User_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
+import pos.util.BCrypt;
 import pos.util.StringUtility;
 
 @Stateless(name = "UserRepository")
@@ -28,7 +29,8 @@ public class UserRepositoryImpl extends PersistenceManager {
 	public long insertUser(String userName, String password) {
 		User user = new User();
 		user.setUsername(userName);
-		user.setPassword(password);
+		String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+		user.setPassword(hashed);
 		// inseareaza o noua inregistrare in tabela (persist)
 		// dupa persist informatiile sunt cele din baza de date
 		getEntityManager().persist(user);
@@ -71,8 +73,8 @@ public class UserRepositoryImpl extends PersistenceManager {
 		CriteriaQuery<String> query = builder.createQuery(String.class);
 		Root<User> root = query.from(User.class);
 
-		query.select(root.get(User_.USERNAME));
-
+		// query.select(root.get(User_.USERNAME));
+		query.select(root.get("username"));
 		TypedQuery<String> typedQuery = getEntityManager().createQuery(query);
 		return typedQuery.getResultList();
 	}
@@ -88,7 +90,9 @@ public class UserRepositoryImpl extends PersistenceManager {
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (username != null) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(User_.USERNAME)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(User_.USERNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("username")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(username) + "%"));
 		}
 

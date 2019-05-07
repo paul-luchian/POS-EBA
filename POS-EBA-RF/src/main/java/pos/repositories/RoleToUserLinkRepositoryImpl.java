@@ -19,15 +19,15 @@ import pos.business.domains.ActionType;
 import pos.business.domains.UserType;
 import pos.dtos.RoleToActionLinkDto;
 import pos.dtos.RoleToUserLinkDto;
-import pos.entities.Action_;
+// import pos.entities.Action_;
 import pos.entities.Role;
 import pos.entities.RoleToActionLink;
-import pos.entities.RoleToActionLink_;
+// import pos.entities.RoleToActionLink_;
 import pos.entities.RoleToUserLink;
-import pos.entities.RoleToUserLink_;
-import pos.entities.Role_;
+// import pos.entities.RoleToUserLink_;
+// import pos.entities.Role_;
 import pos.entities.User;
-import pos.entities.User_;
+// import pos.entities.User_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.StringUtility;
@@ -69,11 +69,14 @@ public class RoleToUserLinkRepositoryImpl extends PersistenceManager {
 
 		List<Predicate> predicates = new ArrayList<>();
 		if (userType != null) {
-			predicates.add(builder.equal(root.get(RoleToUserLink_.ROLE).get(Role_.TYPE), userType));
+			// predicates.add(builder.equal(root.get(RoleToUserLink_.ROLE).get(Role_.TYPE),
+			// userType));
+			predicates.add(builder.equal(root.get("role").get("type"), userType));
 		}
 		if (!StringUtility.isBlank(username)) {
-			Expression<String> exp = builder.trim(' ',
-					builder.lower(root.get(RoleToUserLink_.USER).get(User_.USERNAME)));
+			// Expression<String> exp = builder.trim('
+			// ',builder.lower(root.get(RoleToUserLink_.USER).get(User_.USERNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("user").get("username")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(username) + "%"));
 		}
 

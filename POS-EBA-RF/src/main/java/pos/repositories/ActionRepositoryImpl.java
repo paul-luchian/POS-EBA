@@ -19,9 +19,9 @@ import pos.RfUtil;
 import pos.business.domains.ActionType;
 import pos.dtos.ActionDto;
 import pos.entities.Action;
-import pos.entities.Action_;
+// import pos.entities.Action_;
 import pos.entities.Certificate;
-import pos.entities.Certificate_;
+// import pos.entities.Certificate_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.StringUtility;
@@ -47,10 +47,13 @@ public class ActionRepositoryImpl extends PersistenceManager implements Serializ
 
 		List<Predicate> predicates = new ArrayList<>();
 		if (type != null) {
-			predicates.add(builder.equal(root.get(Action_.TYPE), type));
+			// predicates.add(builder.equal(root.get(Action_.TYPE), type));
+			predicates.add(builder.equal(root.get("type"), type));
 		}
 		if (!StringUtility.isBlank(uri)) {
-			Expression<String> exp = builder.trim(' ', builder.lower(root.get(Action_.URI)));
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Action_.URI)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("uri")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(uri) + "%"));
 		}
 
