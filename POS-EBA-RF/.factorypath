@@ -1,4 +1,4 @@
 <factorypath>
     <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="EXTJAR" id="/home/paul/git/POS-EBA/POS-EBA-RF/src/test/resources/hibernate-jpamodelgen-5.3.7.Final.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/home/adelina/git/POS-EBA/POS-EBA-RF/src/test/resources/hibernate-jpamodelgen-5.3.7.Final.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

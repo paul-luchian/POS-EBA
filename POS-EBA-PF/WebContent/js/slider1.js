@@ -54,4 +54,24 @@ $(document).ready(function(){
     {
       currentSlide1(3);
     });
+    $("#signin").on("click", function()
+    		{
+    	console.log("submit clicked");
+    	jQuery.support.cors = true;
+		$.ajax({
+			type : 'GET',
+			url : "http://localhost:8080/POS-EBA-RS/services/signin",
+			crossDomain : true,
+			contentType : "text/html; charset=utf-8",
+			dataType : "text",
+
+			success : function(data) {
+				},
+		
+			error:function(data)
+			{
+				console.log("Data="+data);	
+			}
+		});
+    		})
 });

@@ -20,11 +20,8 @@ import pos.business.domains.ActionType;
 import pos.dtos.ActionDto;
 import pos.dtos.TokenDto;
 import pos.entities.Action;
-import pos.entities.Action_;
 import pos.entities.Certificate;
-import pos.entities.Certificate_;
 import pos.entities.Token;
-import pos.entities.Token_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
 import pos.util.StringUtility;
@@ -59,7 +56,7 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 		
 		
 		if(tokenValue != null) {
-			predicates.add(builder.equal(root.get(Token_.TOKEN_VALUE), tokenValue));
+			predicates.add(builder.equal(root.get("token_value"), tokenValue));
 		}
 		
 		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
