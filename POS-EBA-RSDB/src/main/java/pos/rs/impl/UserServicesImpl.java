@@ -37,9 +37,6 @@ public class UserServicesImpl implements UserServices {
 	@Override
 	public UserDto getUserByIdRequest(HttpServletRequest httpRequest, long userId) {
 		UserDto user = userRepo.selectUserDtoById(userId);
-		String token = token_handler.generateToken(user);
-		System.out.println(token);
-	
 		return userRepo.selectUserDtoById(userId);
 	}
 
