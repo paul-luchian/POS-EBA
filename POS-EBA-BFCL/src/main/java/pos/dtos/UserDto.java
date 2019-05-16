@@ -2,6 +2,8 @@ package pos.dtos;
 
 import java.io.Serializable;
 
+import pos.business.domains.UserType;
+
 public class UserDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -9,6 +11,15 @@ public class UserDto implements Serializable {
 	private long id;
 	private String username;
 	private String password;
+	private UserType role;
+
+	public UserType getRole() {
+		return role;
+	}
+
+	public void setRole(UserType role) {
+		this.role = role;
+	}
 
 	public long getId() {
 		return id;

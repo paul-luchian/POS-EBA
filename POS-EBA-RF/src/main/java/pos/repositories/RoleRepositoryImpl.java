@@ -71,6 +71,24 @@ public class RoleRepositoryImpl extends PersistenceManager implements Serializab
 		return role;
 	}
 
+	public Role selectRole(UserType userType) {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Role> query = builder.createQuery(Role.class);
+		Root<Role> root = query.from(Role.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+		if (userType != null) {
+			// predicates.add(builder.equal(root.get(Role_.TYPE), userType));
+			predicates.add(builder.equal(root.get("type"), userType));
+		}
+
+		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
+		query.select(root).where(predicatesArray);
+
+		TypedQuery<Role> typedQuery = getEntityManager().createQuery(query);
+		return typedQuery.getSingleResult();
+	}
+
 	public RoleDto selectRoleDtoById(long id) {
 		Role role = selectRoleById(id);
 		return roleToDto(role);

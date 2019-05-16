@@ -18,8 +18,6 @@ import pos.util.RestPaths;
 @Path(RestPaths.TOKENS)
 public interface TokenServices {
 
-
-
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -28,6 +26,6 @@ public interface TokenServices {
 	@GET
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.TEXT_PLAIN)
-	Response auth(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long userId);
+	Response auth(@Context HttpServletRequest httpRequest, UserDto user);
 
 }

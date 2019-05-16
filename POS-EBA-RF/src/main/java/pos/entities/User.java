@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,11 +27,23 @@ public class User implements Serializable {
 	@Column(name = "ID", nullable = false)
 	private long id;
 
-	@Column(name = "USERNAME", nullable = false, length = 10, unique = true)
+	@Column(name = "USERNAME", nullable = false, length = 100, unique = true)
 	private String username;
 
 	@Column(name = "PASSWORD", nullable = false, length = 100)
 	private String password;
+
+	@ManyToOne
+	@JoinColumn(name = "ROLE", nullable = false)
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public long getId() {
 		return id;

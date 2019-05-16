@@ -13,9 +13,12 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
+import org.jboss.security.identity.RoleType;
+
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import pos.business.domains.UserType;
 import pos.dtos.UserDto;
 import pos.repositories.UserRepositoryImpl;
 import pos.rs.api.UserServices;
@@ -25,12 +28,13 @@ public class UserServicesImpl implements UserServices {
 
 	@EJB(beanName = "UserRepository")
 	private UserRepositoryImpl userRepo;
-	
-	private TokenHandler token_handler  = new TokenHandler();
+
+	private TokenHandler token_handler = new TokenHandler();
+
 	@Override
 	public String storeUserRequest(HttpServletRequest httpRequest, UserDto user) {
 		System.out.println(user);
-		long id = userRepo.insertUser(user.getUsername(), user.getPassword());
+		long id = userRepo.insertUser(user.getUsername(), user.getPassword(), user.getRole());
 		return "{\"id\":\"" + id + "\"}";
 	}
 
@@ -48,8 +52,9 @@ public class UserServicesImpl implements UserServices {
 	}
 
 	@Override
-	public List<UserDto> getUsersRequest(HttpServletRequest httpRequest, String username) {
-		return userRepo.selectUsers(username);
+	public List<UserDto> getUsersRequest(HttpServletRequest httpRequest, String username, UserType role,
+			String password) {
+		return userRepo.selectUsers(username, role, password);
 	}
 
 	@Override
