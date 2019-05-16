@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -13,7 +14,10 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.jboss.security.identity.RoleType;
+
 import pos.PersistenceManager;
+import pos.business.domains.UserType;
 import pos.dtos.UserDto;
 import pos.entities.User;
 // import pos.entities.User_;
@@ -26,11 +30,15 @@ import pos.util.StringUtility;
 @LocalBean
 public class UserRepositoryImpl extends PersistenceManager {
 
-	public long insertUser(String userName, String password) {
+	@EJB
+	RoleRepositoryImpl roleRepo;
+
+	public long insertUser(String userName, String password, UserType role) {
 		User user = new User();
 		user.setUsername(userName);
 		String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
 		user.setPassword(hashed);
+		user.setRole(roleRepo.selectRole(role));
 		// inseareaza o noua inregistrare in tabela (persist)
 		// dupa persist informatiile sunt cele din baza de date
 		getEntityManager().persist(user);
@@ -64,6 +72,7 @@ public class UserRepositoryImpl extends PersistenceManager {
 		dto.setId(user.getId());
 		dto.setPassword(user.getPassword());
 		dto.setUsername(user.getUsername());
+		dto.setRole(user.getRole().getType());
 		return dto;
 	}
 
@@ -79,7 +88,7 @@ public class UserRepositoryImpl extends PersistenceManager {
 		return typedQuery.getResultList();
 	}
 
-	public List<UserDto> selectUsers(String username) {
+	public List<UserDto> selectUsers(String username, UserType role, String password) {
 		PosValidationException exc = new PosValidationException();
 
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
@@ -95,7 +104,15 @@ public class UserRepositoryImpl extends PersistenceManager {
 			Expression<String> exp = builder.trim(' ', builder.lower(root.get("username")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(username) + "%"));
 		}
-
+		if (role != null) {
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(User_.USERNAME)));
+			predicates.add(builder.equal(root.get("role").get("type"), role));
+		}
+		if (password != null) {
+			/*String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+			predicates.add(builder.equal(root.get("password"), hashed));*/
+		}
 		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
 		query.select(root).where(predicatesArray);
 
@@ -118,6 +135,7 @@ public class UserRepositoryImpl extends PersistenceManager {
 		}
 		userFromDb.setPassword(user.getPassword());
 		userFromDb.setUsername(user.getUsername());
+		userFromDb.setRole(roleRepo.selectRole(user.getRole()));
 		return id;
 	}
 

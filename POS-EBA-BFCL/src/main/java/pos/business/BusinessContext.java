@@ -60,6 +60,7 @@ public class BusinessContext implements Serializable {
 	}
 
 	public static BusinessContext from(HttpServletRequest request) {
+
 		BusinessContext businessContext = new BusinessContext();
 
 		String cookies = request.getHeader(HttpHeaders.COOKIE);

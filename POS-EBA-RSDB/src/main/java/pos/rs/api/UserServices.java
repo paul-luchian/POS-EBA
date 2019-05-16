@@ -14,6 +14,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.security.identity.RoleType;
+
+import pos.business.domains.UserType;
 import pos.dtos.UserDto;
 import pos.util.RestPaths;
 
@@ -37,7 +40,8 @@ public interface UserServices {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	List<UserDto> getUsersRequest(@Context HttpServletRequest httpRequest,
-			@QueryParam(RestPaths.USERNAME) String username);
+			@QueryParam(RestPaths.USERNAME) String username, @QueryParam(RestPaths.ROLE) UserType role,
+			@QueryParam(RestPaths.PASSWORD) String password);
 
 	// va returna un singur utilizator
 	// primeste id-ul userului de returnat
