@@ -32,6 +32,9 @@ public class Profile implements Serializable {
 
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastname;
+	
+	@Column(name = "EMAIL", nullable = false)
+	private String email;
 
 	public User getUser() {
 		return user;
@@ -63,6 +66,14 @@ public class Profile implements Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

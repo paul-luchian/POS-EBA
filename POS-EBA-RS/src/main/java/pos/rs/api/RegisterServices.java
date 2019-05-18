@@ -8,6 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import pos.dtos.ProfileDto;
+import pos.dtos.RegisterDto;
 import pos.dtos.UserDto;
 import pos.entities.User;
 import pos.util.RestPaths;
@@ -19,6 +21,6 @@ public interface RegisterServices {
 		@POST
 		@Produces(MediaType.APPLICATION_JSON)
 		@Consumes(MediaType.APPLICATION_JSON)
-		String registerUserRequest(@Context HttpServletRequest httpRequest, UserDto user);
+		String registerUserRequest(@Context HttpServletRequest httpRequest, RegisterDto user);
 
 }

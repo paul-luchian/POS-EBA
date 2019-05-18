@@ -125,7 +125,7 @@
 
 
 									<div class="form-group row">
-									<label id="email-error" style="display:none">Email already used!</label>
+									<label id="email-error" style="display:none">Email not valid!</label>
 										<label for="email"
 											class="col-md-4 col-form-label text-md-right">Email
 											address</label>
@@ -154,6 +154,7 @@
 										<div class="col-md-6">
 											<input id="confirm_password" type="password"
 												class="form-control" name="confirm_password" required>
+												<label id="password-error" style="display:none">Passwords are not the same!</label>
 										</div>
 									</div>
 

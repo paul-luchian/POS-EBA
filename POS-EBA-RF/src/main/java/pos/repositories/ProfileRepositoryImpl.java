@@ -47,6 +47,7 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 		profile.setUser(user);
 		profile.setLastname(dto.getLastname());
 		profile.setFirstname(dto.getFirstname());
+		profile.setEmail(dto.getEmail());
 		getEntityManager().persist(profile);
 		return profile.getId();
 	}
