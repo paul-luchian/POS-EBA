@@ -4,10 +4,12 @@ $(document).ready(function() {
 		var email = $('input[name="email"]').val();
 		var password = $('input[name="password"]').val();
 		var arg = {
-			"email" : email,
+			"userName" : email,
 			"password" : password
 		}
 		var json = JSON.stringify(arg);
+		
+		console.log("json for register="+JSON.stringify(json));
 	
 		jQuery.support.cors = true;
 		$.ajax({
