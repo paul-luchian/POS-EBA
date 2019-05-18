@@ -67,7 +67,7 @@ public class RegisterServicesImpl implements RegisterServices {
 				entity = new StringEntity(json.toString());
 				httpPost.setEntity(entity);
 			    httpPost.setHeader("Accept", "application/json");
-			    httpPost.setHeader("Content-type", "application/json; charset=UTF-8");
+			    httpPost.setHeader("Content-type", "application/json");
 			    CloseableHttpResponse response = client.execute(httpPost);
 			    System.out.println("code"+response.getStatusLine().getStatusCode());
 			    System.out.println("body"+EntityUtils.toString(response.getEntity()));
