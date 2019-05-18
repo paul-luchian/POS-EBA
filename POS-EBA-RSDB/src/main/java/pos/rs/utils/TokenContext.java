@@ -6,10 +6,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
 
-import org.jboss.security.identity.RoleType;
 import org.json.JSONObject;
 
-import pos.business.BusinessContext;
 import pos.business.domains.UserType;
 import pos.rs.impl.TokenHandler;
 import pos.util.StringUtility;
@@ -55,10 +53,10 @@ public class TokenContext implements Serializable {
 	public static TokenContext from(HttpServletRequest request) {
 
 		TokenContext TokenContext = new TokenContext();
-
-		String token = request.getHeader(HttpHeaders.AUTHORIZATION).substring(7);
-		TokenContext.setToken(token);
+		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if (token != null) {
+			token = token.substring(7);
+			TokenContext.setToken(token);
 			breakToken(TokenContext, TokenHandler.decryptToken(token));
 		}
 

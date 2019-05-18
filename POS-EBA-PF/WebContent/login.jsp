@@ -37,7 +37,7 @@
 											address</label>
 
 										<div class="col-md-6">
-											<input id="email" type="email" class="form-control"
+											<input id="email-login" type="email" class="form-control"
 												name="email" required autofocus>
 										</div>
 									</div>

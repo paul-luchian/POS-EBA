@@ -24,7 +24,6 @@ public interface TokenServices {
 	String storeTokenRequest(@Context HttpServletRequest httpRequest, TokenDto dto);
 
 	@GET
-	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.TEXT_PLAIN)
 	Response auth(@Context HttpServletRequest httpRequest, UserDto user);
 

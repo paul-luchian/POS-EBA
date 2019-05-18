@@ -67,6 +67,7 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 		return typedQuery.getResultList().stream().map(this::tokenToDto).collect(Collectors.toList());
 
 	}
+
 	public List<Token> selectTokens(String tokenValue) {
 
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
@@ -86,6 +87,7 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 		return typedQuery.getResultList();
 
 	}
+
 	private TokenDto tokenToDto(Token token) {
 		TokenDto dto = new TokenDto();
 		dto.setId(token.getId());
@@ -100,10 +102,7 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 		token.setTokenValue(dto.getTokenValue());
 		return token.getId();
 	}
-	/*public long updateTokenValue(String tokenValue,String newValue) {
-		List<Token> list=selectTokens(tokenValue);
-		
-	}*/
+
 	private Token selectTokenById(long id) {
 		PosValidationException exc = new PosValidationException();
 

@@ -1,30 +1,19 @@
 package pos.rs.impl;
 
 import java.security.Key;
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Base64.Decoder;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.http.client.HttpClient;
-import org.jboss.security.identity.RoleType;
-import org.json.JSONObject;
-
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import pos.business.domains.UserType;
-import pos.dtos.UserDto;
 
 public class TokenHandler {
 	private static int expirationTime = 30 * 60 * 1000;

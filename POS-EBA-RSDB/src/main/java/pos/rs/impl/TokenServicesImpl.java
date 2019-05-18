@@ -65,8 +65,13 @@ public class TokenServicesImpl implements TokenServices {
 									.build();
 
 						} else {
-							
+
 							String token = TokenHandler.generateToken(user.getUsername(), user.getRole(), user.getId());
+
+							TokenDto temp = new TokenDto();
+							temp.setTokenValue(token);
+							temp.setUserId(user.getId());
+							tokenRepo.updateToken(list.get(0).getId(), temp);
 
 							System.out.println("Token = " + token);
 							System.out.println("User = " + user.getUsername());
@@ -95,7 +100,10 @@ public class TokenServicesImpl implements TokenServices {
 				if (user != null && BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
 					// user existent si cu credentiale valide
 					String token = TokenHandler.generateToken(user.getUsername(), user.getRole(), user.getId());
-
+					TokenDto temp = new TokenDto();
+					temp.setTokenValue(token);
+					temp.setUserId(user.getId());
+					tokenRepo.insertToken(temp);
 					System.out.println("Token = " + token);
 					System.out.println("User = " + user.getUsername());
 
