@@ -8,11 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.NewCookie;
-
-import com.ibm.wsdl.util.StringUtils;
 
 import pos.util.StringUtility;
 

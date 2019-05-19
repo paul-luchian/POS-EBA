@@ -2,8 +2,6 @@ package pos.dtos;
 
 import java.io.Serializable;
 
-import pos.business.domains.UserType;
-
 public class RegisterDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;

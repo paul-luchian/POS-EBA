@@ -1,7 +1,6 @@
 package pos.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class TokenDto implements Serializable {
 

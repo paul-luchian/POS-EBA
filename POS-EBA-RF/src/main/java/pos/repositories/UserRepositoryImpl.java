@@ -14,8 +14,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jboss.security.identity.RoleType;
-
 import pos.PersistenceManager;
 import pos.business.domains.UserType;
 import pos.dtos.UserDto;
@@ -89,7 +87,6 @@ public class UserRepositoryImpl extends PersistenceManager {
 	}
 
 	public List<UserDto> selectUsers(String username, UserType role, String password) {
-		PosValidationException exc = new PosValidationException();
 
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -110,8 +107,10 @@ public class UserRepositoryImpl extends PersistenceManager {
 			predicates.add(builder.equal(root.get("role").get("type"), role));
 		}
 		if (password != null) {
-			/*String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
-			predicates.add(builder.equal(root.get("password"), hashed));*/
+			/*
+			 * String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+			 * predicates.add(builder.equal(root.get("password"), hashed));
+			 */
 		}
 		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
 		query.select(root).where(predicatesArray);

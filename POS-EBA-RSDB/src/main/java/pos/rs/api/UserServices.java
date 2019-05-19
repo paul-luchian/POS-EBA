@@ -14,8 +14,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.security.identity.RoleType;
-
 import pos.business.domains.UserType;
 import pos.dtos.UserDto;
 import pos.util.RestPaths;

@@ -8,19 +8,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import pos.dtos.ProfileDto;
 import pos.dtos.RegisterDto;
-import pos.dtos.UserDto;
-import pos.entities.User;
 import pos.util.RestPaths;
 
 @Path(RestPaths.REGISTER)
 public interface RegisterServices {
 	// va insera un utilizator
-		// returneaza id-ul inregistrarii inserate
-		@POST
-		@Produces(MediaType.APPLICATION_JSON)
-		@Consumes(MediaType.APPLICATION_JSON)
-		String registerUserRequest(@Context HttpServletRequest httpRequest, RegisterDto user);
+	// returneaza id-ul inregistrarii inserate
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	String registerUserRequest(@Context HttpServletRequest httpRequest, RegisterDto user);
 
 }

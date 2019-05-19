@@ -10,22 +10,18 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import pos.PersistenceManager;
-import pos.RfUtil;
 import pos.business.domains.UserType;
 import pos.dtos.RoleDto;
-import pos.entities.Profile;
 // import pos.entities.Profile_;
 import pos.entities.Role;
 // import pos.entities.Role_;
 // import pos.entities.User_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;
-import pos.util.StringUtility;
 
 @Stateless(name = "RoleRepository")
 @LocalBean

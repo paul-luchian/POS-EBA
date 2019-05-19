@@ -15,13 +15,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import pos.PersistenceManager;
-import pos.business.domains.ActionType;
 import pos.business.domains.UserType;
-import pos.dtos.RoleToActionLinkDto;
 import pos.dtos.RoleToUserLinkDto;
 // import pos.entities.Action_;
 import pos.entities.Role;
-import pos.entities.RoleToActionLink;
 // import pos.entities.RoleToActionLink_;
 import pos.entities.RoleToUserLink;
 // import pos.entities.RoleToUserLink_;

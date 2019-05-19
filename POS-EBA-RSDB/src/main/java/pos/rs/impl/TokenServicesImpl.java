@@ -5,14 +5,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
-import pos.business.BusinessContext;
 import pos.dtos.TokenDto;
 import pos.dtos.UserDto;
 import pos.repositories.TokenRepositoryImpl;
@@ -35,8 +30,6 @@ public class TokenServicesImpl implements TokenServices {
 		long id = tokenRepo.insertToken(dto);
 		return "{\"id\":\"" + id + "\"}";
 	}
-
-	private TokenHandler tk = new TokenHandler();
 
 	@Override
 	public Response auth(HttpServletRequest httpRequest, UserDto dto) {

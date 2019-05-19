@@ -15,12 +15,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import pos.PersistenceManager;
-import pos.RfUtil;
 import pos.business.domains.ActionType;
 import pos.dtos.ActionDto;
 import pos.entities.Action;
-// import pos.entities.Action_;
-import pos.entities.Certificate;
 // import pos.entities.Certificate_;
 import pos.exceptions.PosValidationException;
 import pos.exceptions.ValidationHint;

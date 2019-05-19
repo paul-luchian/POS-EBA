@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -32,7 +31,7 @@ public class Profile implements Serializable {
 
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastname;
-	
+
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 

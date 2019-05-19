@@ -1,9 +1,5 @@
 package pos.rs.api;
 
-import javax.ws.rs.Path;
-
-import pos.util.RestPaths;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -20,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import pos.business.domains.UserType;
 import pos.dtos.RoleDto;
+import pos.util.RestPaths;
+
 // http://localhost:8080/POS-EBA-RSDB/server1/role?type=ADMIN
 @Path(RestPaths.ROLE)
 public interface RoleServices {

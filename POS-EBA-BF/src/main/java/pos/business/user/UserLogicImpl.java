@@ -1,6 +1,5 @@
 package pos.business.user;
 
-import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
