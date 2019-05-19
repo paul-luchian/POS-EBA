@@ -51,6 +51,7 @@ public class TokenServicesImpl implements TokenServices {
 					return Response.status(400).build();
 				} else {
 					UserDto user = listToken.get(0);
+					System.out.println("Got the user");
 					if (user != null) {
 						// user existent, se
 						if (tCtxt.getExpirationDate().getTime() < System.currentTimeMillis()) {
@@ -74,6 +75,7 @@ public class TokenServicesImpl implements TokenServices {
 					} else {
 						// user inexistent
 						// eroare
+						System.out.println("User not found!");
 						return Response.status(400).build();
 					}
 
@@ -86,6 +88,7 @@ public class TokenServicesImpl implements TokenServices {
 			System.out.println("TOKEN NESETAT");
 			List<UserDto> list = userRepo.selectUsers(dto.getUsername(), null, dto.getPassword());
 			if (list.size() != 1) {
+				System.out.println("User not found !");
 				return Response.status(400).build();
 			} else {
 				UserDto user = list.get(0);
@@ -103,6 +106,7 @@ public class TokenServicesImpl implements TokenServices {
 					return Response.status(200).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).build();
 
 				} else {
+					System.out.println("User not found or invalid credentials!");
 					// user inexistent sau credentiale invalide
 					return Response.status(400).build();
 				}

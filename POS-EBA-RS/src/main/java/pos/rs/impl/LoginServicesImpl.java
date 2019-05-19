@@ -25,7 +25,7 @@ import pos.rs.api.LoginServices;
 public class LoginServicesImpl implements LoginServices {
 
 	@Override
-	public Response loginRequest(HttpServletRequest httpRequest, UserDto user) {
+	public String loginRequest(HttpServletRequest httpRequest, UserDto user) {
 		JSONObject json = new JSONObject();
 		if (user != null && (user.getUsername() != null && user.getPassword() != null)) {
 			json.put("userName", user.getUsername());
@@ -57,12 +57,13 @@ public class LoginServicesImpl implements LoginServices {
 			for (int i = 0; i < h.length; i++) {
 				r.header(h[i].getName(), h[i].getValue());
 			}
-
-			return r.build();
+			JSONObject jsonObj = new JSONObject(r.build());
+			
+			return jsonObj.toString();//r.build().toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return Response.status(400).build();
+			return Response.status(400).build().toString();
 		}
 
 		/*

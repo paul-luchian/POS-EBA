@@ -18,6 +18,6 @@ public interface LoginServices {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Response loginRequest(@Context HttpServletRequest httpRequest, UserDto user);
+	String loginRequest(@Context HttpServletRequest httpRequest, UserDto user);
 
 }

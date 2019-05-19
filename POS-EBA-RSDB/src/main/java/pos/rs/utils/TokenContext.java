@@ -54,9 +54,12 @@ public class TokenContext implements Serializable {
 
 		TokenContext TokenContext = new TokenContext();
 		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if (token != null) {
-			token = token.substring(7);
+		token = token.substring(7);
+		System.out.println("Token size="+token.length());
+		if (token.length() > 0) {
+			
 			TokenContext.setToken(token);
+			System.out.println("header="+TokenContext.getToken());
 			breakToken(TokenContext, TokenHandler.decryptToken(token));
 		}
 
