@@ -64,8 +64,9 @@ $(function() {
 			success: function(data) {
 				console.log("response post" + data);
 				if (data == "ok") {
-					window.location.reload(true);
+					
 					alert("Updated user with succes");
+					window.location.reload(true);
 					
 				} else {
 					alert("Something went wrong!")
