@@ -34,7 +34,7 @@ public interface ProfileServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	List<ProfileDto> getProfilesRequest(@Context HttpServletRequest httpRequest,
 			@QueryParam(RestPaths.USERNAME) String username, @QueryParam(RestPaths.FIRSTNAME) String firstName,
-			@QueryParam(RestPaths.LASTNAME) String lastName);
+			@QueryParam(RestPaths.LASTNAME) String lastName, @QueryParam(RestPaths.EMAIL) String email);
 
 	@GET
 	@Path(RestPaths.ID_SERVICE)

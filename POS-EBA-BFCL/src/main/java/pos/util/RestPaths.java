@@ -20,6 +20,7 @@ public final class RestPaths {
 	public static final String PASSWORD = "password";
 	public static final String FIRSTNAME = "firstname";
 	public static final String LASTNAME = "lastname";
+	public static final String EMAIL = "email";
 	public static final String ISSUER = "issuer";
 	public static final String SERIAL_NUMBER = "serialNumber";
 	public static final String SUBJECT = "subject";
@@ -39,6 +40,8 @@ public final class RestPaths {
 	// rest
 	public static final String REGISTER = "register";
 	public static final String LOGIN = "login";
+	public static final String ADMIN = "admin"; 
+	
 	// paths for tests and rest map
 	public static final String PATH_APPLICATION_COOKIE = String.join(SEP, APPLICATION_PATH);
 }

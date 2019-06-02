@@ -52,7 +52,7 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 		return profile.getId();
 	}
 
-	public List<ProfileDto> selectProfiles(String username, String firstName, String lastName) {
+	public List<ProfileDto> selectProfiles(String username, String firstName, String lastName, String email) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Profile> query = builder.createQuery(Profile.class);
 		Root<Profile> root = query.from(Profile.class);
@@ -75,6 +75,12 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 			// builder.lower(root.get(Profile_.LASTNAME)));
 			Expression<String> exp = builder.trim(' ', builder.lower(root.get("lastname")));
 			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(lastName) + "%"));
+		}
+		if (!StringUtility.isBlank(email)) {
+			// Expression<String> exp = builder.trim(' ',
+			// builder.lower(root.get(Profile_.LASTNAME)));
+			Expression<String> exp = builder.trim(' ', builder.lower(root.get("email")));
+			predicates.add(builder.like(exp, "%" + StringUtility.cleanString(email) + "%"));
 		}
 
 		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
@@ -103,6 +109,7 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 		dto.setLastname(profile.getLastname());
 		dto.setId(profile.getUser().getId());
 		dto.setUsername(profile.getUser().getUsername());
+		dto.setEmail(profile.getEmail());
 		return dto;
 	}
 

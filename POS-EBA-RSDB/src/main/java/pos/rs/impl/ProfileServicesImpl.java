@@ -24,8 +24,8 @@ public class ProfileServicesImpl implements ProfileServices {
 
 	@Override
 	public List<ProfileDto> getProfilesRequest(HttpServletRequest httpRequest, String username, String firstName,
-			String lastName) {
-		return profileRepo.selectProfiles(username, firstName, lastName);
+			String lastName, String email) {
+		return profileRepo.selectProfiles(username, firstName, lastName, email);
 	}
 
 	@Override
