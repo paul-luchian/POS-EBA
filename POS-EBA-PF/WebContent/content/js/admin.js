@@ -116,7 +116,7 @@ $(function() {
 
 function openWindow(user) {
 	var obj = JSON.parse(user);
-	$('#editForm').fadeToggle();
+//	$('#editForm').fadeToggle();
 	document.forms['user-form']['id'].value = obj.id;
 	document.forms['user-form']['firstname'].value = obj.firstname;
 	document.forms['user-form']['lastname'].value = obj.lastname;
