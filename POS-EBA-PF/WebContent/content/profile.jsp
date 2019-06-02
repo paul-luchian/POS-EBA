@@ -3,38 +3,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/app.css" rel="stylesheet" type="text/css">
-<link href="css/tabmenu.css" rel="stylesheet" type="text/css">
+<link href="content/css/app.css" rel="stylesheet" type="text/css">
+<link href="content/css/tabmenu.css" rel="stylesheet" type="text/css">
 <title>Profile</title>
 
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/profile.js"></script>
+<script src="content/js/profile.js"></script>
 <script>
+	$(document).ready(function() {
 
-$(document).ready(function(){
+		$("#btn1").click(function() {
+			$("#firstname").attr("readonly", false);
+			$("#lastname").attr("readonly", false);
+			$("#email").attr("readonly", false);
+			$("#username").attr("readonly", false);
+			$("#password").attr("readonly", false);
 
+			$("#old-passwd").attr("style", "display:flex");
+			$("#new-passwd").attr("style", "display:flex");
+			$("#confirmation").attr("style", "display:flex");
+			$("#change-passwd").attr("style", "display:flex");
 
+			$("#btn1").text("Change profile details");
+			$("#passwd-label").text("New password");
 
-$("#btn1").click(function(){
-	$("#firstname").attr("readonly", false);
-	$("#lastname").attr("readonly", false);
-	$("#email").attr("readonly", false);
-	$("#username").attr("readonly", false);
-	$("#password").attr("readonly", false);
-
-	$("#old-passwd").attr("style","display:flex");
-	$("#new-passwd").attr("style","display:flex");
-	$("#confirmation").attr("style","display:flex");
-	$("#change-passwd").attr("style","display:flex");
-
-	$("#btn1").text("Change profile details");
-	$("#passwd-label").text("New password");
-
-});
-});
-
+		});
+	});
 </script>
 
 </head>

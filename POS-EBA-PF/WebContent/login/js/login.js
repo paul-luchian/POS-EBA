@@ -76,7 +76,7 @@ $(document).ready(function() {
 					setCookie("access_token",token);
 					//document.cookie='access_token='+token ;
 					
-					window.location.replace("http://localhost:8080/POS-EBA-PF/profile.jsp");
+					window.location.replace("http://localhost:8080/POS-EBA-PF/content/profile.jsp");
 					}
 					else
 						{

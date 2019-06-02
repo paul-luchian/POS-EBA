@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/app.css" rel="stylesheet" type="text/css">
-<link href="css/tabmenu.css" rel="stylesheet" type="text/css">
+<link href="login/css/app.css" rel="stylesheet" type="text/css">
+<link href="login/css/tabmenu.css" rel="stylesheet" type="text/css">
 <title>Register and login</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="js/register.js"></script>
-<script src="js/login.js"></script>
+<script src="login/js/register.js"></script>
+<script src="login/js/login.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -46,8 +46,8 @@
 											class="col-md-4 col-form-label text-md-right">Password</label>
 
 										<div class="col-md-6">
-											<input id="password-login" type="password" class="form-control"
-												name="password" required>
+											<input id="password-login" type="password"
+												class="form-control" name="password" required>
 										</div>
 									</div>
 
@@ -61,7 +61,8 @@
 											</div>
 										</div>
 									</div>
-									<label id="login-error" style="display:none">Incorrect username or password!</label>
+									<label id="login-error" style="display: none">Incorrect
+										username or password!</label>
 									<div class="form-group row mb-0">
 										<div class="col-md-8 offset-md-4">
 											<button id="login" type="submit" class="btn btn-primary">
@@ -109,10 +110,10 @@
 												name="lastname" required autofocus>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
-										<label id="username-error" style="display:none">Username already used!</label>
-										<label for="username"
+										<label id="username-error" style="display: none">Username
+											already used!</label> <label for="username"
 											class="col-md-4 col-form-label text-md-right">Username</label>
 
 										<div class="col-md-6">
@@ -124,8 +125,8 @@
 
 
 									<div class="form-group row">
-									<label id="email-error" style="display:none">Email not valid!</label>
-										<label for="email"
+										<label id="email-error" style="display: none">Email
+											not valid!</label> <label for="email"
 											class="col-md-4 col-form-label text-md-right">Email
 											address</label>
 
@@ -153,7 +154,8 @@
 										<div class="col-md-6">
 											<input id="confirm_password" type="password"
 												class="form-control" name="confirm_password" required>
-												<label id="password-error" style="display:none">Passwords are not the same!</label>
+											<label id="password-error" style="display: none">Passwords
+												are not the same!</label>
 										</div>
 									</div>
 
