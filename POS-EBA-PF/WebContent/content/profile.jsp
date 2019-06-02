@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="content/css/app.css" rel="stylesheet" type="text/css">
-<link href="content/css/tabmenu.css" rel="stylesheet" type="text/css">
+<link href="css/app.css" rel="stylesheet" type="text/css">
+<link href="css/tabmenu.css" rel="stylesheet" type="text/css">
 <title>Profile</title>
 
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="content/js/profile.js"></script>
+<script src="js/profile.js"></script>
 <script>
 	$(document).ready(function() {
 
