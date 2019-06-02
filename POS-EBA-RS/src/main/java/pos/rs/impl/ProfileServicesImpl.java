@@ -45,9 +45,9 @@ public class ProfileServicesImpl implements ProfileServices {
 		String payloadJson = new String(decoder.decode(parts[1]));
 		String signatureJson = new String(decoder.decode(parts[2]));
 
-		System.out.println("header" + headerJson);
+		//System.out.println("header" + headerJson);
 		System.out.println("payload" + payloadJson);
-		System.out.println("signature" + signatureJson);
+		//System.out.println("signature" + signatureJson);
 		String ret[] = { headerJson, payloadJson, signatureJson };
 		return ret;
 	}
@@ -160,7 +160,7 @@ public class ProfileServicesImpl implements ProfileServices {
 
 				System.out.println(" request from user =" + line);
 				JSONObject _json = new JSONObject(line);
-				System.out.println("response password" +_json.get("password"));
+				System.out.println("response password " +_json.get("password"));
 				
 		
 				if (pos.util.BCrypt.checkpw(password,_json.get("password").toString())) {
@@ -169,7 +169,7 @@ public class ProfileServicesImpl implements ProfileServices {
 					//old password ok, update with the new one
 					
 					CloseableHttpClient client = HttpClients.createDefault();
-					String url_update = "http://localhost:8080/POS-EBA-RSDB/server1/user/"+_json.get("userid");
+					String url_update = "http://localhost:8080/POS-EBA-RSDB/server1/user/"+_json.get("id");
 					HttpPost httpPost = new HttpPost(url_update);
 				
 					
@@ -184,6 +184,17 @@ public class ProfileServicesImpl implements ProfileServices {
 					client.close();
 					System.out.println(" response update  body" + body);
 					
+					
+					JSONObject jsonUserId = new JSONObject(body);
+					String id = jsonUserId.get("id").toString();
+					System.out.println("User id=" + id);
+					if (id != null) {
+						return "ok";
+					}
+					else
+					{
+						return "Error on update";
+					}
 				} 
 				else
 				{

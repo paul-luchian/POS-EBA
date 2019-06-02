@@ -45,11 +45,19 @@ $(function() {
 					"Authorization": cookie
 				},
 				success : function(data) {
-					console.log("test");
-
+					
+					console.log("response update user password: " + data);
+					if (data == "ok") {
+						
+						alert(" Password updated successfully! ");
+						window.location.reload(true);
+						
+					} else {
+						alert(" Something went wrong! Password was not updated! ")
+					}
 				},
 				error : function(data) {
-					alert(" error on change pasword!");
+					alert(" Error on change pasword!");
 				}
 
 
