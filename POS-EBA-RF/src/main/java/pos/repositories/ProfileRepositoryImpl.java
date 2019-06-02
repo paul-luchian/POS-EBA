@@ -128,8 +128,10 @@ public class ProfileRepositoryImpl extends PersistenceManager implements Seriali
 		if (!exc.getHints().isEmpty()) {
 			throw exc;
 		}
+	
 		profile.setFirstname(dto.getFirstname());
 		profile.setLastname(dto.getLastname());
+		profile.setEmail(dto.getEmail());
 
 		return profile.getId();
 	}

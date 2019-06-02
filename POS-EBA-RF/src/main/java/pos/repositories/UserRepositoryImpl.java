@@ -132,9 +132,20 @@ public class UserRepositoryImpl extends PersistenceManager {
 		if (!exc.getHints().isEmpty()) {
 			throw exc;
 		}
-		userFromDb.setPassword(user.getPassword());
-		userFromDb.setUsername(user.getUsername());
-		userFromDb.setRole(roleRepo.selectRole(user.getRole()));
+		if(user.getPassword() != null)
+		{
+			userFromDb.setPassword(user.getPassword());
+		}
+		
+		if(user.getUsername() != null)
+		{
+			userFromDb.setUsername(user.getUsername());
+		}
+		if(user.getRole() != null)
+		{
+			userFromDb.setRole(roleRepo.selectRole(user.getRole()));
+		}
+
 		return id;
 	}
 

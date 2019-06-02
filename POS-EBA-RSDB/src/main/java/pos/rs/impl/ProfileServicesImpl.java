@@ -35,6 +35,7 @@ public class ProfileServicesImpl implements ProfileServices {
 
 	@Override
 	public String updateProfileRequest(HttpServletRequest httpRequest, ProfileDto dto, long profileId) {
+		System.out.println("profile id="+profileId);
 		long id = profileRepo.updateProfile(profileId, dto);
 		return "{\"id\":\"" + id + "\"}";
 	}

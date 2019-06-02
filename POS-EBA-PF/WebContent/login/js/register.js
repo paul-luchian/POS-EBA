@@ -40,12 +40,13 @@ $(document).ready(function() {
                         success: function(data) {
                             console.log("response post" + data);
                             if (data == "ok") {
-                                alert("Inregistrarea a fost efectuata cu succes! Pentru a continua este negesara intrarea in cont.");
+                                alert("Registration with succes! Please login to continue!");
+                                window.location.reload(true);
                             } else {
                                 //						/*error= username used*/
                                 //						$("#username-error").css("display", "block");
                                 //						$("#email-error").css("display", "block");
-                                alert("Operatiunea a fost intrerupta! Va rugam incercati mai tarziu!")
+                                alert("Something went wrong! Plase try again later!")
                             }
                         },
                         error: function(error) {

@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import pos.business.domains.UserType;
+import pos.dtos.RegisterDto;
 import pos.dtos.UserDto;
 import pos.util.RestPaths;
 
@@ -34,24 +35,15 @@ public interface AdminServices {
 			@QueryParam(RestPaths.USERNAME) String username, @QueryParam(RestPaths.ROLE) UserType role,
 			@QueryParam(RestPaths.PASSWORD) String password);
 
-	// va returna un singur utilizator
-	// primeste id-ul userului de returnat
-	@GET
-	@Path(RestPaths.ID_SERVICE)
-	@Produces(MediaType.APPLICATION_JSON)
-	UserDto getUserByIdRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long userId);
-
 	// va face update la un utilizator
 	@POST
-	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	String updateUserRequest(@Context HttpServletRequest httpRequest, UserDto user,
-			@PathParam(RestPaths.ID) long userId);
+	String updateUserRequest(@Context HttpServletRequest httpRequest, RegisterDto user);
 
 	@DELETE
 	@Path(RestPaths.ID_SERVICE)
 	@Produces(MediaType.APPLICATION_JSON)
-	void deleteUserRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long userId);
+	String deleteUserRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long userId);
 
 }
