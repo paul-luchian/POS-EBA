@@ -10,7 +10,7 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="content/js/profile.js"></script>
+<script src="js/profile.js"></script>
 <script>
 	$(document).ready(function() {
 
@@ -48,7 +48,7 @@
 							<div class="card-header"></div>
 
 							<div class="card-body">
-								<form method="POST" action="profile">
+								<form name="profile-form" method="POST" action="profile">
 
 									<div class="form-group row">
 										<label for="name"
@@ -144,7 +144,7 @@
 									<div class="form-group row mb-0" id="change-passwd"
 										style="display: none;">
 										<div class="col-md-8 offset-md-4">
-											<button type="submit" id="btn2" class="btn btn-primary">
+											<button type="submit" id="changePassword" class="btn btn-primary">
 												Change password</button>
 										</div>
 									</div>
