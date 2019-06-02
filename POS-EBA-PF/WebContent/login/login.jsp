@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/app.css" rel="stylesheet" type="text/css">
-<link href="css/tabmenu.css" rel="stylesheet" type="text/css">
+<link href="login/css/app.css" rel="stylesheet" type="text/css">
+<link href="login/css/tabmenu.css" rel="stylesheet" type="text/css">
 <title>Register and login</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="js/register.js"></script>
-<script src="js/login.js"></script>
+<script src="login/js/register.js"></script>
+<script src="login/js/login.js"></script>
 </head>
 <body>
 	<div class="container">
