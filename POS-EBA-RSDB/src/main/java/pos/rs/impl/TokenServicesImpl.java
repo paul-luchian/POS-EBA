@@ -30,6 +30,24 @@ public class TokenServicesImpl implements TokenServices {
 		long id = tokenRepo.insertToken(dto);
 		return "{\"id\":\"" + id + "\"}";
 	}
+	
+	@Override
+	public String deleteTokenRequest(HttpServletRequest httpRequest) {
+		TokenContext tCtxt = TokenContext.from(httpRequest);
+		System.out.println(tCtxt.getToken());
+		if (TokenContext.isSetted(tCtxt)) {
+			List<TokenDto> list = tokenRepo.selectTokensDto(tCtxt.getToken());
+			if (list.size() != 1) {
+				return "error";
+			} else {
+				System.out.println("token to delete="+list.get(0).getTokenValue());
+				tokenRepo.deleteToken(list.get(0).getTokenValue());
+				return "ok";
+			}
+		}
+		return "error";
+
+	}
 
 	@Override
 	public Response auth(HttpServletRequest httpRequest, UserDto dto) {
@@ -115,4 +133,6 @@ public class TokenServicesImpl implements TokenServices {
 		}
 
 	}
+	
+	
 }

@@ -41,6 +41,8 @@ public final class RestPaths {
 	public static final String REGISTER = "register";
 	public static final String LOGIN = "login";
 	public static final String ADMIN = "admin"; 
+	public static final String LOGOUT = "logout"; 
+	
 	
 	// paths for tests and rest map
 	public static final String PATH_APPLICATION_COOKIE = String.join(SEP, APPLICATION_PATH);
