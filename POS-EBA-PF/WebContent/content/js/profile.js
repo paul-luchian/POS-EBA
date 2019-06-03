@@ -1,9 +1,9 @@
 $(function() {
 	$(document).on('click', "#changePassword", function(){
 
-		console.log(document.forms["profile-form"]['password'].value );
-		console.log(document.forms["profile-form"]['confirm_password'].value );
-		if(document.forms["profile-form"]['password'].value != document.forms["profile-form"]['confirm_password'].value){
+		console.log(document.getElementById('password').value );
+		console.log(document.getElementById('confirm_password').value  );
+		if(document.getElementById('password').value != document.getElementById('confirm_password').value ){
 			alert("Sorry ! Password are not the same!");
 
 		}else{
@@ -28,8 +28,9 @@ $(function() {
 
 			
 			var obj = new Object();
-			obj.password = document.forms['profile-form']['old-password'].value;
-			obj.newpassword = document.forms['profile-form']['confirm_password'].value;
+			obj.password = document.getElementById('old-password').value ;
+			obj.newpassword = document.getElementById('confirm_password').value;
+			
 			var _json = JSON.stringify(obj);
 			console.log(_json);
 			
@@ -57,7 +58,7 @@ $(function() {
 					}
 				},
 				error : function(data) {
-					alert(" Error on change pasword!");
+					alert(" Error on request for change pasword!");
 				}
 
 
@@ -65,7 +66,7 @@ $(function() {
 			});
 		}
 	});
-});
+});																									
 
 $(document)
 .ready(
@@ -104,10 +105,12 @@ $(document)
 
 					var resp = JSON.stringify(data);
 					var obj = JSON.parse(resp);
-					document.forms['profile-form']['firstname'].value = obj.firstname;
-					document.forms['profile-form']['lastname'].value = obj.lastname;
-					document.forms['profile-form']['username'].value = obj.username;
-					document.forms['profile-form']['email'].value = obj.email;
+					document.getElementById('firstname').value  = obj.firstname;
+					document.getElementById('lastname').value = obj.lastname;
+					document.getElementById('username').value = obj.username;
+					document.getElementById('email').value = obj.email;
+					
+					
 				},
 
 				error : function(data) {
