@@ -38,7 +38,7 @@
 	<div class="container">
 		<input id="tab3" type="radio" name="tabs" checked> <label
 			for="tab3">User Profile</label>
-
+	<button id="logout" style = "float:right">Logout</button>
 
 		<section id="profile-container">
 			<div class="container">
