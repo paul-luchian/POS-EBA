@@ -20,8 +20,8 @@
 		$("#btnFrontend").click(function() {
 			$("#firstname").attr("readonly", false);
 			$("#lastname").attr("readonly", false);
-			$("#email").attr("readonly", false);
-			$("#username").attr("readonly", false);
+			/*$("#email").attr("readonly", false);
+			$("#username").attr("readonly", false);*/
 			$("#password").attr("readonly", false);
 
 			$("#old-passwd").attr("style", "display:flex");

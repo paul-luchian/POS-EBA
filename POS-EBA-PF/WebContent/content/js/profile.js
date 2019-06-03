@@ -41,7 +41,7 @@ $(function() {
 				crossDomain : true,
 				data: _json,
 				contentType : "application/json; charset=utf-8",
-				dataType : "json",
+				dataType : "text",
 				headers: {
 					"Authorization": cookie
 				},
@@ -58,6 +58,7 @@ $(function() {
 					}
 				},
 				error : function(data) {
+					console.log("data="+data);
 					alert(" Error on request for change pasword!");
 				}
 
@@ -66,7 +67,75 @@ $(function() {
 			});
 		}
 	});
-});																									
+});		
+
+
+$(function() {
+	$(document).on('click', "#changeProfile", function(){
+		
+		var first =document.getElementById('firstname').value ;
+		var last = document.getElementById('lastname').value ;
+
+
+		jQuery.support.cors = true;
+
+		window.getCookie = function(name) {
+			var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+			if (match) return match[2];
+		}
+		var cookie = window.getCookie("access_token");
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier"; console.log("cookie nesetat in profile");
+		}
+		else
+		{
+			cookie = "Bearier" + cookie; console.log("cookie setat in profile");
+		}
+
+		
+		var obj = new Object();
+		obj.firstname = first;
+		obj.lastname = last;
+	
+		
+		var _json = JSON.stringify(obj);
+		console.log(_json);
+		
+		
+		$.ajax({
+			type : 'PATCH',
+			url : "http://localhost:8080/POS-EBA-RS/services/profile",
+			crossDomain : true,
+			data: _json,
+			contentType : "application/json; charset=utf-8",
+			dataType : "text",
+			headers: {
+				"Authorization": cookie
+			},
+			success : function(data) {
+				
+				console.log("Response update user profile: " + data);
+				if (data == "ok") {
+					
+					alert(" Profile updated successfully! ");
+					window.location.reload(true);
+					
+				} else {
+					alert(" Something went wrong! Profile detailes were not updated! ")
+				}
+			},
+			error : function(data) {
+				alert(" Error on request for change profile!");
+			}
+
+
+
+		});
+	
+	});
+});
+	
 
 $(document)
 .ready(
