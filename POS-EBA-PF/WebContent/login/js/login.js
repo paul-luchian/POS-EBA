@@ -3,6 +3,7 @@ $(document).ready(function() {
 
 	function setCookie(cname, cvalue) {
 		  var d = new Date();
+		  console.log("date="+d);
 		  d.setTime(d.getTime() + (30*60*1000));
 		  var expires = "expires="+ d.toUTCString();
 		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";

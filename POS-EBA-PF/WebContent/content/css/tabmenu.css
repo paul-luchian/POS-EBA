@@ -55,7 +55,30 @@ input:checked + label {
 #tab3:checked ~ #profile-container{
   display: block;
 }
+button#logout
+{
+	display: inline-block;
+	margin: 0 0 -1px;
+	padding: 15px 25px;
+	font-weight: 600;
+	text-align: center;
+	color: #abc;
+	border: 1px solid transparent;
+	color: #0af;
 
+	border: 1px solid #abc;
+
+    border-top-color: rgb(170, 187, 204);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-color: rgb(170, 187, 204);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+
+	border-top: 2px solid #0af;
+	
+	border-bottom: 1px solid #fff;
+}
 @media screen and (max-width: 800px) {
   label {
     font-size: 0;

@@ -1,72 +1,194 @@
-//
-//function readCookie(name) {
-//	var nameEQ = name + "=";
-//	var ca = document.cookie.split(';');
-//	for(var i=0;i < ca.length;i++) {
-//		var c = ca[i];
-//		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-//		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-//	}
-//	return null;
-//}
-//
-//
-//
-//$(document).ready(function(){
-//	console.log(  "call from profile");
-//
-//
-//	var cookie = readCookie ('access_token');
-//	if (cookie == null){
-//
-//		console.log( "\n Redirect login. No cookie found with name ");
-//		//window.location.replace("http://localhost:8080/POS-EBA-PF/login.jsp");
-//	}
-//	else
-//	{
-//
-//
-//		$.ajax({
-//			type:'GET', 
-//			url:"http://localhost:8080/POS-EBA-RS/services/profiles",
-//			xhrFields: {
-//				withCredentials: true
-//			},
-//			dataType:"json",
-//
-//			success:function(data)
-//			{
-//				console.log( "\n response get info "+ data);
-//				
-//				
-//				//split from data 
-//
-//
-//				var pieces = data.split (';');
-//
-//				// data ={firstname=x; lastname=y;email=z;}
-//
-//
-//
-//				var elements = args[i].split(equal);
-//
-//				var fname = pieces[0].split ('=');
-//				var lname = pieces[1].split ('=');
-//				var user_email = pieces[2].split ('=');
-//
-//				$("#firstname").val(fname[1]); 
-//				$("#lastname").val(lname[1]); 
-//				$("#email").val(user_email[1]); 
-//
-//
-//			},
-//			error:function(data)
-//			{
-//				console.log("\n  Error at get profile info "+JSON.stringify(data));
-//			}
-//		}); // end get info
-//
-//
-//	}// end else
-//});// end doc.ready
-//
+$(function() {
+	$(document).on('click', "#changePassword", function(){
+
+		console.log(document.getElementById('password').value );
+		console.log(document.getElementById('confirm_password').value  );
+		if(document.getElementById('password').value != document.getElementById('confirm_password').value ){
+			alert("Sorry ! Password are not the same!");
+
+		}else{
+
+
+
+			jQuery.support.cors = true;
+
+			window.getCookie = function(name) {
+				var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+				if (match) return match[2];
+			}
+			var cookie = window.getCookie("access_token");
+			if(cookie == null || cookie == undefined)
+			{
+				cookie = "Bearier"; console.log("cookie nesetat in profile");
+			}
+			else
+			{
+				cookie = "Bearier" + cookie; console.log("cookie setat in profile");
+			}
+
+			
+			var obj = new Object();
+			obj.password = document.getElementById('old-password').value ;
+			obj.newpassword = document.getElementById('confirm_password').value;
+			
+			var _json = JSON.stringify(obj);
+			console.log(_json);
+			
+			
+			$.ajax({
+				type : 'POST',
+				url : "http://localhost:8080/POS-EBA-RS/services/profile",
+				crossDomain : true,
+				data: _json,
+				contentType : "application/json; charset=utf-8",
+				dataType : "text",
+				headers: {
+					"Authorization": cookie
+				},
+				success : function(data) {
+					
+					console.log("response update user password: " + data);
+					if (data == "ok") {
+						
+						alert(" Password updated successfully! ");
+						window.location.reload(true);
+						
+					} else {
+						alert(" Something went wrong! Password was not updated! ")
+					}
+				},
+				error : function(data) {
+					console.log("data="+data);
+					alert(" Error on request for change pasword!");
+				}
+
+
+
+			});
+		}
+	});
+});		
+
+
+$(function() {
+	$(document).on('click', "#changeProfile", function(){
+		
+		var first =document.getElementById('firstname').value ;
+		var last = document.getElementById('lastname').value ;
+
+
+		jQuery.support.cors = true;
+
+		window.getCookie = function(name) {
+			var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+			if (match) return match[2];
+		}
+		var cookie = window.getCookie("access_token");
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier"; console.log("cookie nesetat in profile");
+		}
+		else
+		{
+			cookie = "Bearier" + cookie; console.log("cookie setat in profile");
+		}
+
+		
+		var obj = new Object();
+		obj.firstname = first;
+		obj.lastname = last;
+	
+		
+		var _json = JSON.stringify(obj);
+		console.log(_json);
+		
+		
+		$.ajax({
+			type : 'PATCH',
+			url : "http://localhost:8080/POS-EBA-RS/services/profile",
+			crossDomain : true,
+			data: _json,
+			contentType : "application/json; charset=utf-8",
+			dataType : "text",
+			headers: {
+				"Authorization": cookie
+			},
+			success : function(data) {
+				
+				console.log("Response update user profile: " + data);
+				if (data == "ok") {
+					
+					alert(" Profile updated successfully! ");
+					window.location.reload(true);
+					
+				} else {
+					alert(" Something went wrong! Profile detailes were not updated! ")
+				}
+			},
+			error : function(data) {
+				alert(" Error on request for change profile!");
+			}
+
+
+
+		});
+	
+	});
+});
+	
+
+$(document)
+.ready(
+		function() {
+
+			jQuery.support.cors = true;
+
+			window.getCookie = function(name) {
+				var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+				if (match) return match[2];
+			}
+			var cookie = window.getCookie("access_token");
+			if(cookie == null || cookie == undefined)
+			{
+				cookie = "Bearier"; console.log("cookie nesetat in profile");
+			}
+			else
+			{
+				cookie = "Bearier" + cookie; console.log("cookie setat in profile");
+			}
+
+
+
+			$.ajax({
+				type : 'GET',
+				url : "http://localhost:8080/POS-EBA-RS/services/profile",
+				crossDomain : true,
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				headers: {
+					"Authorization": cookie
+				},
+				success : function(data) {
+
+					console.log("response " +JSON.stringify(data));
+
+					var resp = JSON.stringify(data);
+					var obj = JSON.parse(resp);
+					document.getElementById('firstname').value  = obj.firstname;
+					document.getElementById('lastname').value = obj.lastname;
+					document.getElementById('username').value = obj.username;
+					document.getElementById('email').value = obj.email;
+					
+					
+				},
+
+				error : function(data) {
+					alert("System error!");
+				}
+			});
+		});
+
+
+
+
+

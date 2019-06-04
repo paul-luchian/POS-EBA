@@ -109,7 +109,7 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 		return token;
 	}
 
-	public void deleteToken(long id) {
-		getEntityManager().remove(selectTokenById(id));
+	public void deleteToken(String value) {
+		getEntityManager().remove(selectTokens(value).get(0));
 	}
 }

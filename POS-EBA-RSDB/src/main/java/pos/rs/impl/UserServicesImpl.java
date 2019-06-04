@@ -31,7 +31,7 @@ public class UserServicesImpl implements UserServices {
 
 	@Override
 	public String updateUserRequest(HttpServletRequest httpRequest, UserDto user, long userId) {
-		System.out.println(user);
+		System.out.println("user new password"+user.getPassword());
 		long id = userRepo.updateUser(userId, user);
 		return "{\"id\":\"" + id + "\"}";
 	}

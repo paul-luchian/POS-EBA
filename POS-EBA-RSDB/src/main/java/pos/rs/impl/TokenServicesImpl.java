@@ -32,6 +32,24 @@ public class TokenServicesImpl implements TokenServices {
 	}
 
 	@Override
+	public String deleteTokenRequest(HttpServletRequest httpRequest) {
+		TokenContext tCtxt = TokenContext.from(httpRequest);
+		System.out.println(tCtxt.getToken());
+		if (TokenContext.isSetted(tCtxt)) {
+			List<TokenDto> list = tokenRepo.selectTokensDto(tCtxt.getToken());
+			if (list.size() != 1) {
+				return "error";
+			} else {
+				System.out.println("token to delete=" + list.get(0).getTokenValue());
+				tokenRepo.deleteToken(list.get(0).getTokenValue());
+				return "ok";
+			}
+		}
+		return "error";
+
+	}
+
+	@Override
 	public Response auth(HttpServletRequest httpRequest, UserDto dto) {
 
 		TokenContext tCtxt = TokenContext.from(httpRequest);
@@ -55,8 +73,7 @@ public class TokenServicesImpl implements TokenServices {
 					if (user != null) {
 						// user existent, se
 						if (tCtxt.getExpirationDate().getTime() < System.currentTimeMillis()) {
-							return Response.status(200).header(HttpHeaders.AUTHORIZATION, "Bearer " + tCtxt.getToken())
-									.build();
+							return Response.status(200).header(HttpHeaders.AUTHORIZATION, "Bearer " + tCtxt.getToken()).build();
 
 						} else {
 
@@ -114,5 +131,45 @@ public class TokenServicesImpl implements TokenServices {
 			}
 		}
 
+	}
+
+	@Override
+	public String check(HttpServletRequest httpRequest) {
+		TokenContext tCtxt = TokenContext.from(httpRequest);
+		boolean flag = false;
+		if (TokenContext.isSetted(tCtxt)) {
+			List<TokenDto> list = tokenRepo.selectTokensDto(tCtxt.getToken());
+			if (list.size() != 1) {
+				// token-ul nu a fost gasit
+				flag = false;
+			} else {
+				// token gasit in db -> se verifica datele
+				List<UserDto> listToken = userRepo.selectUsers(tCtxt.getUsername(), tCtxt.getRole(), null);
+				if (list.size() != 1) {
+					// user din token not found
+					flag = false;
+				} else {
+					// user din token gasit in db
+					UserDto user = listToken.get(0);
+					if (user != null) {
+						if (tCtxt.getExpirationDate().getTime() < System.currentTimeMillis()) {
+							// token valid
+							flag = true;
+
+						} else {
+							// token expirat -> relogare
+							flag = false;
+						}
+
+					} else {
+						System.out.println("User not found!");
+						flag = false;
+					}
+
+				}
+			}
+
+		}
+		return "{\"check\":" + flag + "}";
 	}
 }

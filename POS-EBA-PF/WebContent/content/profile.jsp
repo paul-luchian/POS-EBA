@@ -3,22 +3,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="content/css/app.css" rel="stylesheet" type="text/css">
-<link href="content/css/tabmenu.css" rel="stylesheet" type="text/css">
+<link href="css/app.css" rel="stylesheet" type="text/css">
+<link href="css/tabmenu.css" rel="stylesheet" type="text/css">
 <title>Profile</title>
 
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="content/js/profile.js"></script>
+	<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/logout.js"></script>
 <script>
 	$(document).ready(function() {
 
-		$("#btn1").click(function() {
+		$("#btnFrontend").click(function() {
 			$("#firstname").attr("readonly", false);
 			$("#lastname").attr("readonly", false);
-			$("#email").attr("readonly", false);
-			$("#username").attr("readonly", false);
+			/*$("#email").attr("readonly", false);
+			$("#username").attr("readonly", false);*/
 			$("#password").attr("readonly", false);
 
 			$("#old-passwd").attr("style", "display:flex");
@@ -26,7 +29,8 @@
 			$("#confirmation").attr("style", "display:flex");
 			$("#change-passwd").attr("style", "display:flex");
 
-			$("#btn1").text("Change profile details");
+			$("#btnFrontend").attr("style", "display:none");
+			$("#changeProfile").attr("style", "display:block");
 			$("#passwd-label").text("New password");
 
 		});
@@ -38,7 +42,7 @@
 	<div class="container">
 		<input id="tab3" type="radio" name="tabs" checked> <label
 			for="tab3">User Profile</label>
-
+		<button id="logout" style="float: right">Logout</button>
 
 		<section id="profile-container">
 			<div class="container">
@@ -48,7 +52,7 @@
 							<div class="card-header"></div>
 
 							<div class="card-body">
-								<form method="POST" action="profile">
+						
 
 									<div class="form-group row">
 										<label for="name"
@@ -95,60 +99,67 @@
 
 									</div>
 
-
-
-
-									<div class="form-group row mb-0">
-										<div class="col-md-8 offset-md-4">
-											<button type="submit" id="btn1" class="btn btn-primary">
-												Edit profile</button>
-										</div>
+								<div class="form-group row mb-0">
+									<div class="col-md-8 offset-md-4">
+										<button type="submit" id="changeProfile" class="btn btn-primary"
+											style="display: none;">Change profile details</button>
 									</div>
+								</div>
 
-									<div class="form-group row" id="old-passwd"
-										style="display: none;">
-										<label for="old-password"
-											class="col-md-4 col-form-label text-md-right"> Old
-											Password</label>
+							
 
-										<div class="col-md-6">
-											<input id="old-password" type="password" class="form-control"
-												name="old-password" required>
-										</div>
+								<div class="form-group row mb-0">
+									<div class="col-md-8 offset-md-4">
+										<button id="btnFrontend" class="btn btn-primary">Edit
+											profile</button>
 									</div>
+								</div>
+							
 
-									<div class="form-group row" id="new-passwd"
-										style="display: none;">
-										<label for="password"
-											class="col-md-4 col-form-label text-md-right"
-											id="passwd-label"> Password</label>
+								<div class="form-group row" id="old-passwd"
+									style="display: none;">
+									<label for="old-password"
+										class="col-md-4 col-form-label text-md-right"> Old
+										Password</label>
 
-										<div class="col-md-6">
-											<input id="password" type="password" class="form-control"
-												name="password" required readonly>
-										</div>
+									<div class="col-md-6">
+										<input id="old-password" type="password" class="form-control"
+											name="old-password" required>
 									</div>
+								</div>
 
-									<div class="form-group row" id="confirmation"
-										style="display: none;">
-										<label for="conf_password"
-											class="col-md-4 col-form-label text-md-right ">Confirm
-											Password</label>
+								<div class="form-group row" id="new-passwd"
+									style="display: none;">
+									<label for="password"
+										class="col-md-4 col-form-label text-md-right"
+										id="passwd-label"> Password</label>
 
-										<div class="col-md-6">
-											<input id="confirm_password" type="password"
-												class="form-control" name="confirm_password" required>
-										</div>
+									<div class="col-md-6">
+										<input id="password" type="password" class="form-control"
+											name="password" required readonly>
 									</div>
+								</div>
 
-									<div class="form-group row mb-0" id="change-passwd"
-										style="display: none;">
-										<div class="col-md-8 offset-md-4">
-											<button type="submit" id="btn2" class="btn btn-primary">
-												Change password</button>
-										</div>
+								<div class="form-group row" id="confirmation"
+									style="display: none;">
+									<label for="conf_password"
+										class="col-md-4 col-form-label text-md-right ">Confirm
+										Password</label>
+
+									<div class="col-md-6">
+										<input id="confirm_password" type="password"
+											class="form-control" name="confirm_password" required>
 									</div>
-								</form>
+								</div>
+
+								<div class="form-group row mb-0" id="change-passwd"
+									style="display: none;">
+									<div class="col-md-8 offset-md-4">
+										<button type="submit" id="changePassword"
+											class="btn btn-primary">Change password</button>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>
