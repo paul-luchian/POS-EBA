@@ -1,4 +1,54 @@
 $(document).ready(function() {
+	window.getCookie = function(name) {
+		var cookie = $.cookie(name)//match[2];
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier";
+		}
+
+		else
+		{
+			cookie = "Bearier" + cookie;
+		}
+		return cookie;
+
+	}
+	var cookie = window.getCookie("access_token");
+	console.log("cookie="+cookie);
+	jQuery.support.cors = true;
+	var xhr = $.ajax({
+		type : 'POST',
+		url : "http://localhost:8080/POS-EBA-RSDB/server1/tokens/check",
+		crossDomain : true,
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		headers: {
+			"Authorization": cookie
+		},
+		success : function(data, response) {
+
+			data = data.split(':');
+			result  = data[1].replace('}', '');
+			if(result == 'true')
+			{
+				$("#signin").html('View Profile');
+				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/content/profile.jsp");
+				console.log(result);
+			}
+			else
+			{
+				$("#signin").html('Login/Register');
+				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/login");
+				console.log("wroong thinking Ade!")
+			}
+
+
+		},
+
+		error : function(data) {
+			console.log("Error=" + data);
+		}
+	});
 	var slideIndex1 = 1;
 	var slides = document.getElementsByClassName("mySlides");
 	var dots = document.getElementsByClassName("dot1");
@@ -52,21 +102,6 @@ $(document).ready(function() {
 		currentSlide1(3);
 	});
 	$("#signin").on("click", function() {
-		console.log("submit clicked");
-		jQuery.support.cors = true;
-		$.ajax({
-			type : 'GET',
-			url : "http://localhost:8080/POS-EBA-RS/services/signin",
-			crossDomain : true,
-			contentType : "text/html; charset=utf-8",
-			dataType : "text",
-
-			success : function(data) {
-			},
-
-			error : function(data) {
-				console.log("Data=" + data);
-			}
-		});
+		window.location.replace($(this).attr('href'));
 	})
 });
