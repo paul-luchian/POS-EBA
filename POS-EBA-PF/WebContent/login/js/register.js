@@ -117,7 +117,7 @@ $(document).ready(function() {
 			else
 			{
 				//alert("You are already logged in." );
-				window.location.replace("http://localhost:8080/POS-EBA-PF/content/profile.jsp");
+				window.location.replace("http://localhost:8080/POS-EBA-PF/profile");
 			}
 
 		},

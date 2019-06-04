@@ -32,7 +32,7 @@ $(function() {
 			result  = data[1].replace('}', '');
 			if(result == 'true')
 			{
-				var new_href = 'http://localhost:8080/POS-EBA-PF/content/admin.jsp';
+				var new_href = 'http://localhost:8080/POS-EBA-PF/admin';
 				if(window.location.href != new_href)
 				{
 					window.location.href=new_href;
@@ -41,7 +41,7 @@ $(function() {
 			}
 			else
 			{
-				window.location.href='http://localhost:8080/POS-EBA-PF/content/index.html';
+				window.location.href='http://localhost:8080/POS-EBA-PF/index';
 			}
 
 

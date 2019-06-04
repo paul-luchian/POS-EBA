@@ -33,7 +33,7 @@ $(document).ready(function() {
 			result  = data[1].replace('}', '');
 			if(result == 'true')
 			{
-				var new_href = 'http://localhost:8080/POS-EBA-PF/content/profile.jsp';
+				var new_href = 'http://localhost:8080/POS-EBA-PF/profile';
 				if(window.location.href != new_href)
 				{
 					window.location.href=new_href;
@@ -125,7 +125,7 @@ $(document).ready(function() {
 					setCookie("access_token",token);
 					//document.cookie='access_token='+token ;
 
-					window.location.replace("http://localhost:8080/POS-EBA-PF/content/profile.jsp");
+					window.location.replace("http://localhost:8080/POS-EBA-PF/profile");
 				}
 				else
 				{
