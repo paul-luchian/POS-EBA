@@ -36,7 +36,7 @@
 											class="col-md-4 col-form-label text-md-right">Username</label>
 
 										<div class="col-md-6">
-											<input id="email-login" type="email" class="form-control"
+											<input id="email-login" type="text" class="form-control"
 												name="email" required autofocus>
 										</div>
 									</div>
