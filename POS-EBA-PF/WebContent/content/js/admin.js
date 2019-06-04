@@ -73,7 +73,9 @@ $(function() {
 			crossDomain: true,
 			contentType: "application/json; charset=utf-8",
 			dataType: "text",
-
+			headers: {
+				"Authorization": cookie
+			},
 			success: function(data) {
 				console.log("response post" + data);
 				if (data == "ok") {
@@ -112,7 +114,9 @@ $(function() {
 			data: _json,
 			contentType: "application/json; charset=utf-8",
 			dataType: "text",
-
+			headers: {
+				"Authorization": cookie
+			},
 			success: function(data) {
 				console.log("response post" + data);
 				if (data == "ok") {
@@ -191,6 +195,21 @@ function openWindow(user) {
 
 $(document).ready(function() {
 
+	window.getCookie = function(name) {
+		var cookie = $.cookie(name)//match[2];
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier";
+		}
+
+		else
+		{
+			cookie = "Bearier" + cookie;
+		}
+		return cookie;
+
+	}
+	var cookie = window.getCookie("access_token");
 	jQuery.support.cors = true;
 	$
 	.ajax({
@@ -199,7 +218,9 @@ $(document).ready(function() {
 		crossDomain : true,
 		contentType : "application/json; charset=utf-8",
 		dataType : "json",
-
+		headers: {
+			"Authorization": cookie
+		},
 		success : function(data) {
 			var users = JSON.stringify(data);
 			var jsonData = JSON.parse(users);
