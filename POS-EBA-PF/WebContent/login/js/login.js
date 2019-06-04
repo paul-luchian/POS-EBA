@@ -1,6 +1,53 @@
 $(document).ready(function() {
 
+	window.getCookie = function(name) {
+		var cookie = $.cookie(name)//match[2];
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier";
+		}
 
+		else
+		{
+			cookie = "Bearier" + cookie;
+		}
+		return cookie;
+
+	}
+	var cookie = window.getCookie("access_token");
+
+
+	jQuery.support.cors = true;
+	var xhr = $.ajax({
+		type : 'POST',
+		url : "http://localhost:8080/POS-EBA-RSDB/server1/tokens/check",
+		crossDomain : true,
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		headers: {
+			"Authorization": cookie
+		},
+		success : function(data, response) {
+
+			data = data.split(':');
+			result  = data[1].replace('}', '');
+			if(result == 'true')
+			{
+				var new_href = 'http://localhost:8080/POS-EBA-PF/content/profile.jsp';
+				if(window.location.href != new_href)
+				{
+					window.location.href=new_href;
+				}
+
+			}
+		},
+
+		error : function(data) {
+			console.log("Error=" + data);
+		}
+	});
+
+	
 	function setCookie(cname, cvalue) {
 		var d = new Date();
 		console.log("date="+d);
@@ -28,19 +75,19 @@ $(document).ready(function() {
 
 		jQuery.support.cors = true;
 
-		window.getCookie = function(name) {
-			var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-			if (match) return match[2];
-		}
-		var cookie = window.getCookie("access_token")
-		if(cookie == null || cookie == undefined)
-		{
-			cookie = "Bearier";
-		}
-		else
-		{
-			cookie = "Bearier" + cookie;
-		}
+//		window.getCookie = function(name) {
+//			var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+//			if (match) return match[2];
+//		}
+//		var cookie = window.getCookie("access_token")
+//		if(cookie == null || cookie == undefined)
+//		{
+//			cookie = "Bearier";
+//		}
+//		else
+//		{
+//			cookie = "Bearier" + cookie;
+//		}
 
 		var xhr = $.ajax({
 			type : 'POST',
