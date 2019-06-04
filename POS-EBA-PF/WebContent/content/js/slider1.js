@@ -32,7 +32,7 @@ $(document).ready(function() {
 			if(result == 'true')
 			{
 				$("#signin").html('View Profile');
-				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/content/profile.jsp");
+				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/profile");
 			}
 			else
 			{

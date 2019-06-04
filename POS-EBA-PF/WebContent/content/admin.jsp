@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="css/admin.css" rel="stylesheet" type="text/css">
-<link href="css/adminform.css" rel="stylesheet" type="text/css">
+<link href="content/css/admin.css" rel="stylesheet" type="text/css">
+<link href="content/css/adminform.css" rel="stylesheet" type="text/css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
