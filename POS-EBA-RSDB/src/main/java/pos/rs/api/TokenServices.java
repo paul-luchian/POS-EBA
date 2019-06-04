@@ -6,6 +6,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -37,4 +38,9 @@ public interface TokenServices {
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	String deleteTokenRequest(@Context HttpServletRequest httpRequest);
+	
+	@DELETE
+	@Path(RestPaths.ID_SERVICE)
+	@Produces(MediaType.APPLICATION_JSON)
+	String deleteTokenByIdRequest(@Context HttpServletRequest httpRequest, @PathParam(RestPaths.ID) long userId);
 }

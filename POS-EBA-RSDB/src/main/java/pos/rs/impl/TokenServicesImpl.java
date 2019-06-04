@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 
 import pos.dtos.TokenDto;
 import pos.dtos.UserDto;
+import pos.entities.Token;
 import pos.repositories.TokenRepositoryImpl;
 import pos.repositories.UserRepositoryImpl;
 import pos.rs.api.TokenServices;
@@ -55,6 +56,12 @@ public class TokenServicesImpl implements TokenServices {
 	}
 
 	@Override
+	public String deleteTokenByIdRequest(HttpServletRequest httpRequest, long userId) {
+		tokenRepo.deleteTokenById(userId);
+		return "ok";
+	}
+
+	@Override
 	public Response auth(HttpServletRequest httpRequest, UserDto dto) {
 
 		TokenContext tCtxt = TokenContext.from(httpRequest);
@@ -78,7 +85,8 @@ public class TokenServicesImpl implements TokenServices {
 					if (user != null) {
 						// user existent, se
 						if (tCtxt.getExpirationDate().getTime() < System.currentTimeMillis()) {
-							return Response.status(200).header(HttpHeaders.AUTHORIZATION, "Bearer " + tCtxt.getToken()).build();
+							return Response.status(200).header(HttpHeaders.AUTHORIZATION, "Bearer " + tCtxt.getToken())
+									.build();
 
 						} else {
 
