@@ -36,12 +36,14 @@ public final class RestPaths {
 	public static final String CERTIFICATE = "certificates";
 	public static final String TOKENS = "tokens";
 	public static final String ROLE_ACTION = "role-action";
+	public static final String CHECK = "check";
 
 	// rest
 	public static final String REGISTER = "register";
 	public static final String LOGIN = "login";
-	public static final String ADMIN = "admin"; 
-	
+	public static final String ADMIN = "admin";
+	public static final String LOGOUT = "logout";
+
 	// paths for tests and rest map
 	public static final String PATH_APPLICATION_COOKIE = String.join(SEP, APPLICATION_PATH);
 }
