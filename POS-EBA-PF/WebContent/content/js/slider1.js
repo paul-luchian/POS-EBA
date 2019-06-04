@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	}
 	var cookie = window.getCookie("access_token");
-	console.log("cookie="+cookie);
+
 	jQuery.support.cors = true;
 	var xhr = $.ajax({
 		type : 'POST',
@@ -33,13 +33,11 @@ $(document).ready(function() {
 			{
 				$("#signin").html('View Profile');
 				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/content/profile.jsp");
-				console.log(result);
 			}
 			else
 			{
 				$("#signin").html('Login/Register');
 				$("#signin").attr("href", "http://localhost:8080/POS-EBA-PF/login");
-				console.log("wroong thinking Ade!")
 			}
 
 

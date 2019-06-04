@@ -1,4 +1,56 @@
 $(function() {
+	window.getCookie = function(name) {
+		var cookie = $.cookie(name)//match[2];
+		if(cookie == null || cookie == undefined)
+		{
+			cookie = "Bearier";
+		}
+
+		else
+		{
+			cookie = "Bearier" + cookie;
+		}
+		return cookie;
+
+	}
+	var cookie = window.getCookie("access_token");
+
+
+	jQuery.support.cors = true;
+	var xhr = $.ajax({
+		type : 'POST',
+		url : "http://localhost:8080/POS-EBA-RSDB/server1/tokens/check",
+		crossDomain : true,
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		headers: {
+			"Authorization": cookie
+		},
+		success : function(data, response) {
+
+			data = data.split(':');
+			result  = data[1].replace('}', '');
+			if(result == 'true')
+			{
+				var new_href = 'http://localhost:8080/POS-EBA-PF/content/admin.jsp';
+				if(window.location.href != new_href)
+				{
+					window.location.href=new_href;
+				}
+
+			}
+			else
+			{
+				window.location.href='http://localhost:8080/POS-EBA-PF/content/index.html';
+			}
+
+
+		},
+
+		error : function(data) {
+			console.log("Error=" + data);
+		}
+	});
 	$(document).on('click', "#delete", function() {
 		var button = document.getElementById("delete");
 		var table = document.getElementById('users-table');
@@ -64,10 +116,10 @@ $(function() {
 			success: function(data) {
 				console.log("response post" + data);
 				if (data == "ok") {
-					
+
 					alert("Updated user with succes");
 					window.location.reload(true);
-					
+
 				} else {
 					alert("Something went wrong!")
 				}
