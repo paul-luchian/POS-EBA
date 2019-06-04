@@ -13,7 +13,9 @@ import pos.dtos.UserDto;
 import pos.repositories.TokenRepositoryImpl;
 import pos.repositories.UserRepositoryImpl;
 import pos.rs.api.TokenServices;
+import pos.rs.business.CheckTokenLogic;
 import pos.rs.utils.TokenContext;
+import pos.rs.utils.TokenHandler;
 import pos.util.BCrypt;
 
 @Stateless
@@ -24,6 +26,9 @@ public class TokenServicesImpl implements TokenServices {
 
 	@EJB(beanName = "UserRepository")
 	private UserRepositoryImpl userRepo;
+
+	@EJB(beanName = "CheckToken")
+	private CheckTokenLogic checkToken;
 
 	@Override
 	public String storeTokenRequest(HttpServletRequest httpRequest, TokenDto dto) {
@@ -136,41 +141,7 @@ public class TokenServicesImpl implements TokenServices {
 	@Override
 	public String check(HttpServletRequest httpRequest) {
 		TokenContext tCtxt = TokenContext.from(httpRequest);
-		boolean flag = false;
-		if (TokenContext.isSetted(tCtxt)) {
-			List<TokenDto> list = tokenRepo.selectTokensDto(tCtxt.getToken());
-			if (list.size() != 1) {
-				// token-ul nu a fost gasit
-				flag = false;
-			} else {
-				// token gasit in db -> se verifica datele
-				List<UserDto> listToken = userRepo.selectUsers(tCtxt.getUsername(), tCtxt.getRole(), null);
-				if (list.size() != 1) {
-					// user din token not found
-					flag = false;
-				} else {
-					// user din token gasit in db
-					UserDto user = listToken.get(0);
-					if (user != null) {
-						if (tCtxt.getExpirationDate().getTime() < System.currentTimeMillis()) {
-							// token valid
-							flag = true;
-
-						} else {
-							// token expirat -> relogare
-							flag = false;
-						}
-
-					} else {
-						System.out.println("User not found!");
-						flag = false;
-					}
-
-				}
-			}
-
-		}
-		return "{\"check\":" + flag + "}";
+		return "{\"check\":" + String.valueOf(checkToken.check(tCtxt)) + "}";
 	}
 
 }

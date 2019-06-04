@@ -29,7 +29,7 @@ public interface TokenServices {
 	Response auth(@Context HttpServletRequest httpRequest, UserDto user);
 
 	@POST
-	@Path((RestPaths.CHECK))
+	@Path(RestPaths.CHECK)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	String check(@Context HttpServletRequest httpRequest);

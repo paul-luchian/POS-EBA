@@ -81,6 +81,26 @@ public class TokenRepositoryImpl extends PersistenceManager implements Serializa
 
 	}
 
+	public List<Token> selectTokens(long userId) {
+
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Token> query = builder.createQuery(Token.class);
+		Root<Token> root = query.from(Token.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+
+		if (userId != 0) {
+			predicates.add(builder.equal(root.get("user").get("id"), userId));
+		}
+
+		Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
+		query.select(root).where(predicatesArray);
+
+		TypedQuery<Token> typedQuery = getEntityManager().createQuery(query);
+		return typedQuery.getResultList();
+
+	}
+
 	private TokenDto tokenToDto(Token token) {
 		TokenDto dto = new TokenDto();
 		dto.setId(token.getId());

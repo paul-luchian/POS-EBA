@@ -9,7 +9,6 @@ import javax.ws.rs.core.HttpHeaders;
 import org.json.JSONObject;
 
 import pos.business.domains.UserType;
-import pos.rs.impl.TokenHandler;
 import pos.util.StringUtility;
 
 public class TokenContext implements Serializable {

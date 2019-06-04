@@ -1,4 +1,4 @@
-package pos.rs.impl;
+package pos.rs.utils;
 
 import java.security.Key;
 import java.util.Base64;
